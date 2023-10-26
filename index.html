@@ -65,6 +65,14 @@
       font-weight: normal;
     }
 
+    /* Style the text in the popup */
+    h3 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 14px;
+      color: black;
+      font-weight: normal;
+    }
+
     a {
       color: #f7f4ea;
     }
@@ -100,6 +108,70 @@
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
         maxZoom: 16
     }).addTo(map);
+
+    // define a list of counties with data 
+    const dataCounties = ['Black Hawk','Johnson'];
+
+    // define a function to set the fill color of the counties to blue if they are in the dataCounties list
+    function getColor(county) {
+      return dataCounties.includes(county) ? '#0000ff' : '#ffffff';
+    };
+
+    // use jquery to load GeoJSON data
+    $.when(
+      $.getJSON('data/counties.geojson')
+      // when the files are done loading,
+      // identify them with names and process them through a function
+    ).done(function(counties) {
+        // add the counties to the map
+        L.geoJSON(counties, {
+            // style the counties
+            style: function(feature) {
+            return {
+                color: '#000000',
+                weight: 1,
+                fillOpacity: 0.5,
+                fillColor: getColor(feature.properties.county),
+            };
+            },
+            // add a popup to each county
+            onEachFeature: function(feature, layer) {
+                // make the tooltip sticky
+                layer.bindTooltip('<h3>' + feature.properties.county + ' County</h3>', {
+                    sticky: true,
+                    direction: 'top',
+                    opacity: 0.9,
+                });
+                // on hover, highlight the county
+                layer.on('mouseover', function(e) {
+                    this.setStyle({
+                        weight: 3,
+                        color: '#000000',
+                        fillOpacity: 0.5,
+                    });
+                });
+                // on mouseout reset the style
+                layer.on('mouseout', function(e) {
+                    this.setStyle({
+                        weight: 1,
+                        color: '#000000',
+                        fillOpacity: 0.5,
+                    });
+                });
+                // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
+                if (feature.properties.county === 'Black Hawk') {
+                    layer.on('click', function(e) {
+                        window.open('index-bhc.html', '_self');
+                    });
+                } // if the user clicks on the county named 'Johnson', open 'index-jc.html'   
+                else if (feature.properties.county === 'Johnson') {
+                    layer.on('click', function(e) {
+                        window.open('index-jc.html', '_self');
+                    });
+                }
+            },
+        }).addTo(map);
+    });
 
   </script>
 </body>
