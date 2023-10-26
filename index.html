@@ -75,6 +75,36 @@
       font-weight: normal;
     }
 
+    /* Style for the dropdown container */
+    .dropdown-container {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+    }
+
+    /* Style for the list items */
+    .dropdown-container ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-container ul li {
+        margin-bottom: 5px;
+    }
+
+    /* Style for the links */
+    .dropdown-container ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-container ul li a:hover {
+        color: #0000ff;
+    }
+
     a {
       color: #f7f4ea;
     }
@@ -84,8 +114,22 @@
 <body>
   <!-- Header content -->
   <header>
-    <h1>Mapping Segregation in Iowa</h1><br>
-    <h2>Race restrictive covenants in Iowa counties</h2>
+    <h1><a style="text-decoration:none; color:inherit" href="index.html">Mapping Segregation in Iowa</a></h1><br>
+    <h2><a style="text-decoration:none; color:inherit" href="index.html">Race restrictive covenants in Iowa counties</a></h2>
+    <!-- Add a tab for "Information" on the same line and right align -->
+    <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html">Introduction</a></h2>
+    <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin: 0px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="index.html">Maps</a></h2>
+      <div class="dropdown-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+                <li><a href="index-bhc.html">Black Hawk County</a></li>
+                <li><a href="index-jc.html">Johnson County</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
   </header>
   <!-- The map -->
   <div id="map"></div>
@@ -114,9 +158,22 @@
       maxZoom: 20
     }).addTo(map);
 
+    document.addEventListener("DOMContentLoaded", function() {
+        var mapsLink = document.querySelector(".dropdown h2 a");
+        var dropdownContent = document.querySelector(".dropdown-content");
+
+        mapsLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (dropdownContent.style.display === "none") {
+            dropdownContent.style.display = "block";
+            } else {
+            dropdownContent.style.display = "none";
+            }
+        });
+    });
+
     // define a list of counties with data 
     const dataCounties = ['Black Hawk', 'Johnson'];
-
 
     // define a function to set the fill color of the counties to blue if they are in the dataCounties list
     function getColor(county) {
@@ -227,7 +284,7 @@
         layer: geoJsonLayer,
         propertyName: 'county',
         marker: false,
-        position: 'topright',
+        position: 'topleft',
         moveToLocation: function(latlng, title, map) {
           // open 'index-bhc.html' if the user searches for 'Black Hawk'
           if (title == 'Black Hawk') {

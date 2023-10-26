@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Give the page a title -->
+  <title>Mapping Segregation in Iowa: Introduction</title>
+  <!-- Embed Mulish and Merriweather fonts from Google -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <!-- All the CSS code goes inside the style tags below -->
+  <style>
+    /* style the body */
+    body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Add banner to header background */
+    header {
+      /*background-image: url('background image url here');*/
+      position: fixed;
+      width: 100%;
+      height: 60px;
+      /*background-color: #000000;*/
+      background: linear-gradient(rgb(253, 218, 37), black);
+      box-shadow: 0px 5px 5px black;
+      z-index: 800;
+    }
+
+    /* Set and style fonts for text in map */
+    h1 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 22px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.10em;
+      margin-bottom: 0.0em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 14px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.0em;
+      margin-bottom: 0.0em;
+      margin-left: 0.9em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    /* Style for the dropdown container */
+    .dropdown-container {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+    }
+
+    /* Style for the list items */
+    .dropdown-container ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-container ul li {
+        margin-bottom: 5px;
+    }
+
+    /* Style for the links */
+    .dropdown-container ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-container ul li a:hover {
+        color: #0000ff;
+    }
+
+    a {
+      color: #f7f4ea;
+    }
+
+    #text {
+      word-wrap: break-word;
+      z-index: 700;
+      position: fixed;
+      top: 60px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.97);
+      /*overflow-y: scroll;*/
+    } 
+    
+    #textContent {
+      font-family: 'Merriweather';
+      width: 90%;
+      max-width: 900px;
+      line-height: 1.9;
+      margin: 20px auto;
+    }
+
+    h4 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 1.75em;
+      color: #000000;
+      text-align: center;
+    }
+
+    p {
+      font-family: 'Merriweather', serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #000000;
+    }    
+  </style>
+</head>
+
+<body>
+    <!-- Header content -->
+    <header>
+      <h1><a style="text-decoration:none; color:inherit" href="index.html">Mapping Segregation in Iowa</a></h1><br>
+      <h2><a style="text-decoration:none; color:inherit" href="index.html">Race restrictive covenants in Iowa counties</a></h2>
+      <!-- Add a tab for "Information" on the same line and right align -->
+      <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html">Introduction</a></h2>
+      <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin: 0px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="index.html">Maps</a></h2>
+        <div class="dropdown-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+              <ul style="list-style-type: none; padding: 0;">
+                  <li><a href="index-bhc.html">Black Hawk County</a></li>
+                  <li><a href="index-jc.html">Johnson County</a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="text">
+        <div id="textContent">
+            <h4>Introduction</h4>
+            <p>
+              This site traces the use of race restrictive deed covenants in Iowa in the first half of the twentieth century. 
+              Use the menu above to explore race restrictions in Johnson County and Black Hawk County, including maps of all 
+              the restricted parcels and subdivisions; copies of the restrictive agreements and covenants; and further background 
+              information on patterns of racial restriction in each setting. Under “Learn More” you will find information on the 
+              importance and impact of these racial restrictions, their legal history, and their use in other settings.
+            </p>
+            <h4><a style="text-decoration:none; color:inherit; font-size:20px;" href="index-jc.html">Visit the Johnson County map.</a></h4>
+            <h4><a style="text-decoration:none; color:inherit; font-size:20px;" href="index-bhc.html">Visit the Black Hawk County map.</a></h4>
+        </div>
+    </div>    
+    <script>
+
+      document.addEventListener("DOMContentLoaded", function() {
+          var mapsLink = document.querySelector(".dropdown h2 a");
+          var dropdownContent = document.querySelector(".dropdown-content");
+  
+          mapsLink.addEventListener("click", function(event) {
+              event.preventDefault();
+              if (dropdownContent.style.display === "none") {
+              dropdownContent.style.display = "block";
+              } else {
+              dropdownContent.style.display = "none";
+              }
+          });
+      });
+
+    </script>
+  </body>
+  
+  </html>
