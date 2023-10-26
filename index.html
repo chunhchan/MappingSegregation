@@ -11,6 +11,8 @@
   <!-- Embed Mulish and Merriweather fonts from Google -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <!-- Add leaflet-search css library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-search/dist/leaflet-search.min.css" />
   <!-- All the CSS code goes inside the style tags below -->
   <style>
     /* style the body */
@@ -82,7 +84,8 @@
 <body>
   <!-- Header content -->
   <header>
-    <h1>Mapping Segregation in Iowa</h1><br><h2>Race restrictive covenants in Iowa counties</h2>
+    <h1>Mapping Segregation in Iowa</h1><br>
+    <h2>Race restrictive covenants in Iowa counties</h2>
   </header>
   <!-- The map -->
   <div id="map"></div>
@@ -90,8 +93,9 @@
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <!-- Add a link to the jQuery JavaScript library so you can leverage ajax methods to load your data -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Add leaflet-search js library -->
+  <script src="https://unpkg.com/leaflet-search/dist/leaflet-search.min.js"></script>
   <script>
-    
     // define map options
     const mapOptions = {
       center: [42.07, -93.5], // center the map on the coordinates for Iowa
@@ -101,17 +105,18 @@
     };
 
     // define the map with the options above
-    const map = L.map("map", mapOptions);   
+    const map = L.map("map", mapOptions);
 
     // add CartoDB.Voyager basemap to map
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
     }).addTo(map);
 
     // define a list of counties with data 
-    const dataCounties = ['Black Hawk','Johnson'];
+    const dataCounties = ['Black Hawk', 'Johnson'];
+
 
     // define a function to set the fill color of the counties to blue if they are in the dataCounties list
     function getColor(county) {
@@ -129,56 +134,112 @@
       // when the files are done loading,
       // identify them with names and process them through a function
     ).done(function(counties) {
-        // add the counties to the map
-        L.geoJSON(counties, {
-            // style the counties
-            style: function(feature) {
-            return {
-                color: '#000000',
-                weight: 1,
-                fillOpacity: getOpacity(feature.properties.county),
-                fillColor: getColor(feature.properties.county),
-            };
-            },
-            // add a popup to each county
-            onEachFeature: function(feature, layer) {
-                // make the tooltip sticky
-                layer.bindTooltip('<h3>' + feature.properties.county + ' County</h3>', {
-                    sticky: true,
-                    direction: 'top',
-                    opacity: 0.9,
-                });
-                // on hover, highlight the county
-                layer.on('mouseover', function(e) {
-                    this.setStyle({
-                        weight: 3,
-                        color: '#000000',
-                        fillOpacity: getOpacity(feature.properties.county),
-                    });
-                });
-                // on mouseout reset the style
-                layer.on('mouseout', function(e) {
-                    this.setStyle({
-                        weight: 1,
-                        color: '#000000',
-                        fillOpacity: getOpacity(feature.properties.county),
-                    });
-                });
-                // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
-                if (feature.properties.county === 'Black Hawk') {
-                    layer.on('click', function(e) {
-                        window.open('index-bhc.html', '_self');
-                    });
-                } // if the user clicks on the county named 'Johnson', open 'index-jc.html'   
-                else if (feature.properties.county === 'Johnson') {
-                    layer.on('click', function(e) {
-                        window.open('index-jc.html', '_self');
-                    });
-                }
-            },
-        }).addTo(map);
-    });
 
+      // Add all counties to the map
+      L.geoJSON(counties, {
+        // style the counties minimalistically with a black outline and no fill
+        style: function(feature) {
+          return {
+            color: '#000000',
+            weight: 1,
+            fillOpacity: 0.0,
+          };
+        },
+        // add a tooltip to each county
+        onEachFeature: function(feature, layer) {
+          // make the tooltip sticky
+          layer.bindTooltip('<h3>' + feature.properties.county + ' County</h3>', {
+            sticky: true,
+            direction: 'top',
+            opacity: 0.9,
+          });
+          // on hover, highlight the county
+          layer.on('mouseover', function(e) {
+            this.setStyle({
+              weight: 3,
+              color: '#000000',
+              fillOpacity: 0.0,
+            });
+          });
+          // on mouseout reset the style
+          layer.on('mouseout', function(e) {
+            this.setStyle({
+              weight: 1,
+              color: '#000000',
+              fillOpacity: 0.0,
+            });
+          });
+        }
+      }).addTo(map);
+
+      // Filter the GeoJSON data to only include counties in the dataCounties list
+      const filteredCounties = counties.features.filter(feature => dataCounties.includes(feature.properties.county));
+
+      // Create a GeoJSON layer with the filtered counties
+      const geoJsonLayer = L.geoJSON(filteredCounties, {
+        style: function(feature) {
+          return {
+            color: '#000000',
+            weight: 1,
+            fillOpacity: getOpacity(feature.properties.county),
+            fillColor: getColor(feature.properties.county),
+          };
+        },
+        onEachFeature: function(feature, layer) {
+          // make the tooltip sticky
+          layer.bindTooltip('<h3>' + feature.properties.county + ' County</h3>', {
+            sticky: true,
+            direction: 'top',
+            opacity: 0.9,
+          });
+          // on hover, highlight the county
+          layer.on('mouseover', function(e) {
+            this.setStyle({
+              weight: 3,
+              color: '#000000',
+              fillOpacity: getOpacity(feature.properties.county),
+            });
+          });
+          // on mouseout reset the style
+          layer.on('mouseout', function(e) {
+            this.setStyle({
+              weight: 1,
+              color: '#000000',
+              fillOpacity: getOpacity(feature.properties.county),
+            });
+          });
+          // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
+          if (feature.properties.county === 'Black Hawk') {
+            layer.on('click', function(e) {
+              window.open('index-bhc.html', '_self');
+            });
+          } // if the user clicks on the county named 'Johnson', open 'index-jc.html'   
+          else if (feature.properties.county === 'Johnson') {
+            layer.on('click', function(e) {
+              window.open('index-jc.html', '_self');
+            });
+          }
+        },
+      });
+
+      // Add the search bar to the map
+      map.addControl(new L.Control.Search({
+        layer: geoJsonLayer,
+        propertyName: 'county',
+        marker: false,
+        position: 'topright',
+        moveToLocation: function(latlng, title, map) {
+          // open 'index-bhc.html' if the user searches for 'Black Hawk'
+          if (title == 'Black Hawk') {
+            window.open('index-bhc.html', '_self');
+          } // open 'index-jc.html' if the user searches for 'Johnson'
+          else if (title == 'Johnson') {
+            window.open('index-jc.html', '_self');
+          }
+        },
+      }));
+
+    });
   </script>
 </body>
 
