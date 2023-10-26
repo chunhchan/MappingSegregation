@@ -118,6 +118,11 @@
       return dataCounties.includes(county) ? '#0000ff' : '#ffffff';
     };
 
+    // define a function to set the fill opacity of the counties to 0.5 if they are in the dataCounties list and 0.0 if they are not
+    function getOpacity(county) {
+      return dataCounties.includes(county) ? 0.5 : 0.0;
+    };
+
     // use jquery to load GeoJSON data
     $.when(
       $.getJSON('data/counties.geojson')
@@ -131,7 +136,7 @@
             return {
                 color: '#000000',
                 weight: 1,
-                fillOpacity: 0.5,
+                fillOpacity: getOpacity(feature.properties.county),
                 fillColor: getColor(feature.properties.county),
             };
             },
@@ -148,7 +153,7 @@
                     this.setStyle({
                         weight: 3,
                         color: '#000000',
-                        fillOpacity: 0.5,
+                        fillOpacity: getOpacity(feature.properties.county),
                     });
                 });
                 // on mouseout reset the style
@@ -156,7 +161,7 @@
                     this.setStyle({
                         weight: 1,
                         color: '#000000',
-                        fillOpacity: 0.5,
+                        fillOpacity: getOpacity(feature.properties.county),
                     });
                 });
                 // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
