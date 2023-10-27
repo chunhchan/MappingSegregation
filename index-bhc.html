@@ -204,10 +204,13 @@
 <body>
   <!-- Header content -->
   <header>
+    
     <h1><a style="text-decoration:none; color:inherit" href="index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
     <h2>Race restrictive covenants in Black Hawk County</h2>
+    
     <!-- Add a tab for "Information" on the same line and right align -->
     <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Introduction</a></h2>
+    
     <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
     <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
       <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Maps</a></h2>
@@ -233,6 +236,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Add a tab for "Segregation" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Segregation</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="seg-bhc.html">Black Hawk County</a></li>
+            <li><a href="seg-jc.html">Johnson County</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+
   </header>
   <!-- The map -->
   <div id="map"></div>
