@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Give the page a title -->
+  <title>Mapping Segregation in Iowa: Johnson County Restrictions</title>
+  <!-- Embed Mulish and Merriweather fonts from Google -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+  <!-- All the CSS code goes inside the style tags below -->
+  <style>
+    /* style the body */
+    body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Add banner to header background */
+    header {
+      /*background-image: url('background image url here');*/
+      position: fixed;
+      width: 100%;
+      height: 60px;
+      /*background-color: #000000;*/
+      background: linear-gradient(#ac6853, black);
+      box-shadow: 0px 5px 5px black;
+      z-index: 800;
+    }
+
+    /* Set and style fonts for text in map */
+    h1 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 22px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.10em;
+      margin-bottom: 0.0em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 14px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.0em;
+      margin-bottom: 0.0em;
+      margin-left: 0.9em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    /* Style for the dropdown container */
+    .dropdown-container {
+        background-color: #fffeef;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+    }
+
+    /* Style for the list items */
+    .dropdown-container ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-container ul li {
+        margin-bottom: 0px;
+    }
+
+    /* Style for the links */
+    .dropdown-container ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-container ul li a:hover {
+        color: maroon;
+    }
+
+    a {
+      color: maroon;
+    }
+
+    #text {
+      word-wrap: break-word;
+      z-index: 700;
+      position: fixed;
+      top: 60px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #fffeef;
+      overflow-y: scroll;
+    } 
+    
+    #textContent {
+      font-family: 'Merriweather';
+      width: 90%;
+      max-width: 900px;
+      line-height: 1.9;
+      margin: 20px auto;
+    }
+
+    h4 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 1.75em;
+      color: #000000;
+      text-align: center;
+    }
+
+    p {
+      font-family: 'Merriweather', serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #000000;
+    }
+    
+    table {
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        font-weight: 300;
+        color: #000000;
+        border-collapse: collapse;
+        border-color: black;
+        border: 0.1rem solid #dcd7ca;
+        border-spacing: 0;
+        margin: 4rem 0;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    tr, td {
+        border: 0.1rem solid #dcd7ca;
+        padding: 0.35em;
+    }
+  </style>
+</head>
+
+<body>
+    <!-- Header content -->
+    <header>
+      <h1><a style="text-decoration:none; color:inherit" href="index.html">Mapping Segregation in Iowa</a></h1><br>
+      <h2><a style="text-decoration:none; color:inherit" href="index.html">Race restrictive covenants in Iowa counties</a></h2>
+      <!-- Add a tab for "Information" on the same line and right align -->
+      <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html">Introduction</a></h2>
+      <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="restr-jc.html">Maps</a></h2>
+        <div class="dropdown-content maps-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="index-bhc.html">Black Hawk County</a></li>
+              <li><a href="index-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="restr-jc.html">Restrictions</a></h2>
+        <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="restr-bhc.html">Black Hawk County</a></li>
+              <li><a href="restr-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="text">
+        <div id="textContent">
+            <h4>JOHNSON COUNTY RESTRICTIONS</h4>
+            <p>
+                Restrictions are listed in chronological order. Parcel addresses are approximate, given changes in lot boundaries 
+                since the restrictions were filed. “#” indicates the number of parcels covered by each restriction. Click on the 
+                “restriction” link to open a PDF of the original document.
+            </p>
+            <table><tbody><tr><td>Record #</td><td>Date</td><td>Location</td><td>#</td><td>Restriction (click for original document)</td></tr><tr><td>DB 128-169</td><td>8/20/1921</td><td>219 East Harrison, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="...to any other parties than those belonging to the Caucasian race... (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/03/JC-Deed-Book-128-169.pdf" target="_blank">other than the Caucasian race&#8230;</a></td></tr><tr><td>DB 128-549</td><td>5/12/1923</td><td>309 East Harrison, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="other than the Caucasian race...  (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-128_550.pdf" target="_blank">other than the Caucasian race&#8230; </a></td></tr><tr><td>DB 128-440</td><td>8/28/1924</td><td>University Heights (subdivision)</td><td>129</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-128_440.pdf" target="_blank" rel="noreferrer noopener" aria-label="sole use and benefit of the Caucasian Race (opens in a new tab)">sole use and benefit of the Caucasian Race</a></td></tr><tr><td>DB 128-606</td><td>12/24/1925</td><td>University Heights 2 (subdivision)</td><td>89</td><td><a rel="noreferrer noopener" aria-label="sole use and benefit of the Caucasian Race  (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-128_606.pdf" target="_blank">sole use and benefit of the Caucasian Race </a></td></tr><tr><td>PB 3-140</td><td>4/12/1926</td><td>University Heights 3 (subdivision)</td><td>23</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Plat-Book-3-140.pdf" target="_blank" rel="noreferrer noopener" aria-label="sole use and benefit of the Caucasian Race   (opens in a new tab)">sole use and benefit of the Caucasian Race  </a></td></tr><tr><td>DB 142-136</td><td>10/29/1926</td><td>922 E College, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-142_136.pdf" target="_blank" rel="noreferrer noopener" aria-label="anyone not of the Caucasian race . . .  (opens in a new tab)">anyone not of the Caucasian race . . . </a></td></tr><tr><td>DB 146-62</td><td>4/5/1927</td><td>1818 N Dubuque, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-146_62.pdf" target="_blank" rel="noreferrer noopener" aria-label="any sale . . . to Jews or colored people (opens in a new tab)">any sale . . . to Jews or colored people</a></td></tr><tr><td>DB 145-178</td><td>4/26/1927</td><td>1119 1st Avenue, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="other than of the Caucasian race (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-145_178.pdf" target="_blank">other than the Caucasian race</a></td></tr><tr><td>DB 151-132</td><td>8/14/1929</td><td>2217 H Street, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="other than of the Caucasian Race (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-151_132.pdf" target="_blank">other than the Caucasian Race</a></td></tr><tr><td>DB 154-81</td><td>6/25/1932</td><td>1112 2nd Avenue, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-154_81.pdf" target="_blank" rel="noreferrer noopener" aria-label="other than the Caucasian Race (opens in a new tab)">other than the Caucasian Race</a></td></tr><tr><td>DB 175-54</td><td>7/8/1932</td><td>1127 3rd Avenue, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-175_54.pdf" target="_blank" rel="noreferrer noopener" aria-label="other than the Caucasian Race (opens in a new tab)">other than the Caucasian Race</a></td></tr><tr><td>DB 160-473</td><td>7/14/1932</td><td>1831 G Street Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label=" other than the Caucasian Race  (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-160_473.pdf" target="_blank">other than the Caucasian Race </a></td></tr><tr><td>DB 160-321</td><td>7/22/1933</td><td>1017 1st Avenue, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="  other than the Caucasian Race   (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-160_321.pdf" target="_blank">other than the Caucasian Race  </a></td></tr><tr><td>DB 154-196</td><td>3/2/1934</td><td>2221 H Street, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label=" other than the Caucasian Race    (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-154_196.pdf" target="_blank">other than the Caucasian Race   </a></td></tr><tr><td>DB 160-173</td><td>7/24/1934</td><td>Cottage Reserve (subdivision)</td><td>86</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-160_173.pdf" target="_blank" rel="noreferrer noopener" aria-label="sole use and benefit of the Caucasian Race (opens in a new tab)">sole use and benefit of the Caucasian Race</a></td></tr><tr><td>DB 154-399</td><td>11/14/1934</td><td>719 4th Avenue, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label=" other than the Caucasian Race     (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-154_399.pdf" target="_blank">other than the Caucasian Race    </a></td></tr><tr><td>DB 159-535</td><td>8/15/1936</td><td>2216 F Street, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label=" other than the Caucasian Race      (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-159_535.pdf" target="_blank">other than the Caucasian Race     </a></td></tr><tr><td>DB 175-142</td><td>9/15/1936</td><td>2006 H Street, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="  other than the Caucasian Race       (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-175_142.pdf" target="_blank">other than the Caucasian Race      </a></td></tr><tr><td>DB 162-491</td><td>5/26/1938</td><td>1117, 1st Avenue, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="other than the Caucasian Race (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-162_491.pdf" target="_blank">other than the Caucasian Race</a>       </td></tr><tr><td>DB 164-19</td><td>8/23/1938</td><td>733 4th Street, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label=" other than the Caucasian Race (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-164_19.pdf" target="_blank">other than the Caucasian Race</a>        </td></tr><tr><td>DB 164-32</td><td>10/20/1938</td><td>2220 H Street, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-164_32.pdf" target="_blank" rel="noreferrer noopener" aria-label=" other than the Caucasian Race  (opens in a new tab)"> other than the Caucasian Race </a></td></tr><tr><td>DB 155-480</td><td>11/23/1938</td><td>Capitol View (subdivision</td><td>12</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-155_480.pdf" target="_blank" rel="noreferrer noopener" aria-label="Gentile people of the Caucasian Race (opens in a new tab)">Gentile people of the Caucasian Race</a></td></tr><tr><td>DB 175-78</td><td>2/4/1939</td><td>729 4th Avenue, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="  other than the Caucasian Race   (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-175_78.pdf" target="_blank">other than the Caucasian Race  </a></td></tr><tr><td>DB 159-56</td><td>4/28/1939</td><td>2219 H Street, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-159_56.pdf" target="_blank" rel="noreferrer noopener" aria-label="other than the Caucasian Race  (opens in a new tab)">other than the Caucasian Race </a></td></tr><tr><td>DB 164-348</td><td>6/7/1939</td><td>1900 Muscatine, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label="other than the Caucasian Race (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-164_348.pdf" target="_blank">other than the Caucasian Race</a></td></tr><tr><td>DB 159-389</td><td>8/27/1940</td><td>CR Regan (subdivision)</td><td>61</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-159_389.pdf" target="_blank" rel="noreferrer noopener" aria-label="members of the Caucasian race only (opens in a new tab)">members of the Caucasian race only</a></td></tr><tr><td>DB 172-315</td><td>8/30/1940</td><td>416 5th Avenue, Iowa City</td><td>1</td><td><a rel="noreferrer noopener" aria-label=" other than the Caucasian Race (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-172_315.pdf" target="_blank">other than the Caucasian Race</a></td></tr><tr><td>DB 159-472</td><td>2/25/1941</td><td>Kirkwood Circle (subdivision)</td><td>9</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-159_472.pdf" target="_blank" rel="noreferrer noopener" aria-label="use by members of the Caucasian race only (opens in a new tab)">use by members of the Caucasian race only</a></td></tr><tr><td>DB 172-601</td><td>4/10/1941</td><td>Lyon&#8217;s Addition (subdivision)</td><td>81</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-172_601.pdf">use by members of the Caucasian race only </a></td></tr><tr><td>DB 174-193</td><td>7/1/1941</td><td>Ruppert and Mattes (subdivision)</td><td>9</td><td><a rel="noreferrer noopener" aria-label=" use by members of the Caucasian race only   (opens in a new tab)" href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-174_193.pdf" target="_blank">use by members of the Caucasian race only  </a></td></tr><tr><td>DB 181-262</td><td>6/15/1945</td><td>2218 H Street, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-181_262.pdf" target="_blank" rel="noreferrer noopener" aria-label="other than the Caucasian Race  (opens in a new tab)">other than the Caucasian Race </a></td></tr><tr><td>DB 187-107</td><td>6/15/1945</td><td>2117 Muscatine, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-187_107.pdf" target="_blank" rel="noreferrer noopener" aria-label="other than the Caucasian Race   (opens in a new tab)">other than the Caucasian Race  </a></td></tr><tr><td>DB 195-174</td><td>8/30/1947</td><td>College Court (subdivision)</td><td>30</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-195_174.pdf" target="_blank" rel="noreferrer noopener" aria-label="solely by the Caucasian race  (opens in a new tab)">solely by the Caucasian race </a></td></tr><tr><td>DB 193-343</td><td>12/29/1947</td><td>715 5th Avenue, Iowa City</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/04/JC-Deed-Book-193_343.pdf" target="_blank" rel="noreferrer noopener" aria-label="other than the Caucasian Race    (opens in a new tab)">other than the Caucasian Race   </a></td></tr></tbody></table>
+        </div>
+    </div>    
+    <script>
+
+      // Function to close the dropdowns
+      function closeDropdowns() {
+        var dropdownContents = document.querySelectorAll(".dropdown-content");
+        dropdownContents.forEach(function (content) {
+          content.style.display = "none";
+        });
+      };  
+
+      // show dropdown content
+      document.addEventListener("DOMContentLoaded", function() {
+        var tabLinks = document.querySelectorAll(".tab-link");
+
+        tabLinks.forEach(function(link) {
+          link.addEventListener("click", function(event) {
+            event.preventDefault();
+            var dropdownContent = this.parentElement.nextElementSibling;
+            if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+              // Close other dropdowns
+              closeDropdowns();
+              dropdownContent.style.display = "block";
+            } else {
+              dropdownContent.style.display = "none";
+            }
+          });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function(event) {
+          var target = event.target;
+          var isInsideDropdown = target.closest(".dropdown");
+          if (!isInsideDropdown) {
+            closeDropdowns();
+          }
+        });
+        
+      }); 
+
+    </script>
+  </body>
+  
+  </html>

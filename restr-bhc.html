@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Give the page a title -->
+  <title>Mapping Segregation in Iowa: Black Hawk County Restrictions</title>
+  <!-- Embed Mulish and Merriweather fonts from Google -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+  <!-- All the CSS code goes inside the style tags below -->
+  <style>
+    /* style the body */
+    body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Add banner to header background */
+    header {
+      /*background-image: url('background image url here');*/
+      position: fixed;
+      width: 100%;
+      height: 60px;
+      /*background-color: #000000;*/
+      background: linear-gradient(#ac6853, black);
+      box-shadow: 0px 5px 5px black;
+      z-index: 800;
+    }
+
+    /* Set and style fonts for text in map */
+    h1 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 22px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.10em;
+      margin-bottom: 0.0em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 14px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.0em;
+      margin-bottom: 0.0em;
+      margin-left: 0.9em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    /* Style for the dropdown container */
+    .dropdown-container {
+        background-color: #fffeef;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+    }
+
+    /* Style for the list items */
+    .dropdown-container ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-container ul li {
+        margin-bottom: 0px;
+    }
+
+    /* Style for the links */
+    .dropdown-container ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-container ul li a:hover {
+        color: maroon;
+    }
+
+    a {
+      color: maroon;
+    }
+
+    #text {
+      word-wrap: break-word;
+      z-index: 700;
+      position: fixed;
+      top: 60px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #fffeef;
+      overflow-y: scroll;
+    } 
+    
+    #textContent {
+      font-family: 'Merriweather';
+      width: 90%;
+      max-width: 900px;
+      line-height: 1.9;
+      margin: 20px auto;
+    }
+
+    h4 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 1.75em;
+      color: #000000;
+      text-align: center;
+    }
+
+    p {
+      font-family: 'Merriweather', serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #000000;
+    } 
+    
+    table {
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        font-weight: 300;
+        color: #000000;
+        border-collapse: collapse;
+        border-color: black;
+        border: 0.1rem solid #dcd7ca;
+        border-spacing: 0;
+        margin: 4rem 0;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    tr, td {
+        border: 0.1rem solid #dcd7ca;
+        padding: 0.35em;
+    }
+
+  </style>
+</head>
+
+<body>
+    <!-- Header content -->
+    <header>
+      <h1><a style="text-decoration:none; color:inherit" href="index.html">Mapping Segregation in Iowa</a></h1><br>
+      <h2><a style="text-decoration:none; color:inherit" href="index.html">Race restrictive covenants in Iowa counties</a></h2>
+      <!-- Add a tab for "Information" on the same line and right align -->
+      <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html">Introduction</a></h2>
+      <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="restr-bhc.html">Maps</a></h2>
+        <div class="dropdown-content maps-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="index-bhc.html">Black Hawk County</a></li>
+              <li><a href="index-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="restr-bhc.html">Restrictions</a></h2>
+        <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="restr-bhc.html">Black Hawk County</a></li>
+              <li><a href="restr-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="text">
+        <div id="textContent">
+            <h4>BLACK HAWK COUNTY RESTRICTIONS</h4>
+            <p>
+                Restrictions are listed in chronological order. Parcel addresses are approximate, given changes in lot boundaries 
+                since the restrictions were filed. “#” indicates the number of parcels covered by each restriction. Click on the 
+                “restriction” link to open a PDF of the original document.  
+            </p>
+            <table><tbody><tr><td class="has-text-align-left" data-align="left">Record #</td><td>Date</td><td>Location (subdivision)</td><td>#</td><td>restriction (click for original document)</td></tr><tr><td class="has-text-align-left" data-align="left">MR 2-232</td><td>4/1/1914</td><td>various</td><td>269</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-2_232C.pdf" target="_blank" rel="noreferrer noopener">Negro, Indian, African, etc</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 2-399</td><td>8/11/1915</td><td>Peeks Second addition</td><td>89</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-2_399.pdf" target="_blank" rel="noreferrer noopener">Negro, Indian, African, etc</a></td></tr><tr><td class="has-text-align-left" data-align="left">DB 90_605</td><td>7/3/1916</td><td>Lincoln Park</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2022/09/90-605.pdf">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">DB 49-579</td><td>12/31/1917</td><td>Pfeiffer Place, Cedar Falls</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/DB-49_579-Pfeiffer-Place.pdf" target="_blank" rel="noreferrer noopener">white, Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 4-539</td><td>8/14/1922</td><td>various</td><td>18</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-4_539.pdf" target="_blank" rel="noreferrer noopener">Negro/African/Chinese/Japanese</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 5-226</td><td>1/1/1925</td><td>various</td><td>30</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-5_226.pdf" target="_blank" rel="noreferrer noopener">Negro, Indian, African, Chinese, Japanese</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 7-148</td><td>12/16/1927</td><td>California</td><td>71</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-7_148.pdf" target="_blank" rel="noreferrer noopener">Negro</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 8-112</td><td>12/30/1929</td><td>various</td><td>135</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-8_112C.pdf" target="_blank" rel="noreferrer noopener">Negro, Indian, African, etc</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 15-121</td><td>4/23/1935</td><td>Golden Gardens</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-15_121.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 15-496</td><td>6/6/1937</td><td>South Prospect Hills</td><td>46</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-15_496.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 18-443</td><td>4/3/1939</td><td>Highland</td><td>28</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-18_443.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 18-445</td><td>4/3/1939</td><td>Highland</td><td>8</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-18_445.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 21-327</td><td>6/6/1939</td><td>Maple Leaf Addition</td><td>10</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-21_327.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 21-341</td><td>8/15/1939</td><td>Bungalowland</td><td>14</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-21_341.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 21-403</td><td>8/30/1939</td><td>Ricker &amp; Bratnober Addition</td><td>6</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-21_403.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 21-467</td><td>9/15/1939</td><td>South Prospect Addition</td><td>3</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-21_467.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 22-107</td><td>12/1/1939</td><td>Whitney and Sedgwick Addition</td><td>2</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-22_107.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 24-467</td><td>4/1/1940</td><td>Golden Gardens Addition</td><td>12</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-24_467.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 25-119</td><td>4/23/1940</td><td>Thomas and Brinker Addition</td><td>20</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-25_119.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 24-489</td><td>6/27/1940</td><td>Mevis-Kothe Addition in Waterloo</td><td>11</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-24_489.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB G-127</td><td>1/18/1941</td><td>Kreb&#8217;s Addition</td><td>118</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-G_127.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 26-121</td><td>1/28/1941</td><td>Cedar Heights</td><td>4</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-26_121.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 26-239</td><td>2/15/1941</td><td>Cedar Dale</td><td>5</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-26_239.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 26-521</td><td>3/7/1941</td><td>Cedar Heights</td><td>17</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-26_521.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 27-463</td><td>3/15/1941</td><td>Prospect Hills</td><td>2</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-27_463.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 27-133</td><td>4/5/1941</td><td>Hollandale Addition-Waterloo</td><td>24</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-27_133C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 27-247</td><td>4/10/1941</td><td>Kenwood Park</td><td>363</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-27_247.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 27-233</td><td>4/15/1941</td><td>Cedar Heights</td><td>5</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-27_233.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 28-131</td><td>4/22/1941</td><td>Gates Park Place</td><td>13</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-28_131C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 27-529</td><td>5/8/1941</td><td>Hollandale</td><td>34</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-27_529C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 28-81</td><td>5/29/1941</td><td>Auditor&#8217;s Plat No. 25</td><td>11</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-28_81.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB G-138</td><td>6/6/1941</td><td>Northfield Addition</td><td>22</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-G_138.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB G-150</td><td>6/6/1941</td><td>Westlawn Addition</td><td>52</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-G_150C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB G-191</td><td>7/25/1941</td><td>Prospect View</td><td>35</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-G_191.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 29-543</td><td>11/22/1941</td><td>Burnside</td><td>2</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-29_543.pdf" data-type="URL" data-id="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-29_543.pdf">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 30-601</td><td>12/17/1941</td><td>North Waterloo Place</td><td>18</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-30_601.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 36-25</td><td>3/30/1943</td><td>North Waterloo Place</td><td>22</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-36_25.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-32</td><td>5/1/1944</td><td>Langskov&#8217;s Addition</td><td>30</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_32.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-37</td><td>10/1/1944</td><td>Smucker And Burd&#8217;s Addition</td><td>30</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_37.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-48</td><td>4/23/1945</td><td>Faris Acres, Cedar Falls</td><td>38</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_48C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 49-179</td><td>5/1/1945</td><td>Highland Waterloo</td><td>284</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-49_179C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 47-121</td><td>9/1/1945</td><td>unknown</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-47_121.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-52</td><td>11/5/1945</td><td>Lobdell&#8217;s Addition to Castle Hill</td><td>32</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_52.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-56</td><td>12/19/1945</td><td>Langskov&#8217;s Oakland Park Addition</td><td>44</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_56.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-66</td><td>4/9/1946</td><td>Kuehn&#8217;s Addition</td><td>22</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_66C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-68</td><td>4/17/1946</td><td>Thomas and Brinker Addition</td><td>27</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_68C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-96</td><td>4/18/1946</td><td>Sunset Knolls Addition</td><td>39</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_96C.pdf" target="_blank" rel="noreferrer noopener">Negro</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-100</td><td>5/3/1946</td><td>Liberty Addition</td><td>371</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_100C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-118</td><td>5/22/1946</td><td>Brinker, Thomas, and McClellan Addition</td><td>78</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_118C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-155</td><td>5/22/1946</td><td>Miller&#8217;s Replat</td><td>6</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_155.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-84</td><td>6/6/1946</td><td>Pleasant Oaks</td><td>68</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_84C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-88</td><td>6/10/1946</td><td>Murphy Subdivision</td><td>22</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_88C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-108</td><td>6/24/1946</td><td>Russel Heights, Waterloo</td><td>72</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_108C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-128</td><td>6/24/1946</td><td>Maywood Third Addition, Waterloo</td><td>65</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_128.pdf" target="_blank" rel="noreferrer noopener">Negroid</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 48-499</td><td>7/1/1946</td><td>Country Club Acres</td><td>78</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-48_499C.pdf" target="_blank" rel="noreferrer noopener">negro, Indian, African, Chinese, Japanese</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-208</td><td>8/26/1946</td><td>Langskov&#8217;s Longwood Park Addition</td><td>29</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_208.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-172</td><td>9/25/1946</td><td>Rooff&#8217;s Addition</td><td>51</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_172C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-204</td><td>9/25/1946</td><td>Sunshine Subdivision</td><td>43</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_204C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-219</td><td>10/23/1946</td><td>Raymond Roethler Addition</td><td>20</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_219.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-162</td><td>10/30/1946</td><td>Lobdell&#8217;s Second Addition to Castle Hill</td><td>41</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_162.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-200</td><td>1/16/1947</td><td>Burns Addition</td><td>9</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_200C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-8</td><td>5/20/1947</td><td>Sutton&#8217;s Subdivision</td><td>36</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_8.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-148</td><td>11/28/1947</td><td>Bel Air Addition, Cedar Falls</td><td>14</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_148.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-48</td><td>11/28/1947</td><td>Westview Addition</td><td>8</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_48.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB H-92</td><td>5/1/1948</td><td>Highland Valley Addition</td><td>5</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_92.pdf" data-type="URL" data-id="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-H_92.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-96</td><td>6/5/1948</td><td>White Oaks Addition</td><td>11</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_96C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 56-61</td><td>6/30/1948</td><td>Russell Heights</td><td>19</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-56_61C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 58-381</td><td>4/18/1949</td><td>Lill Dale Acres</td><td>2</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-58_381.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 58-384</td><td>4/18/1949</td><td>Lily Dale Acres</td><td>8</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-58_384C.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 59-257</td><td>6/8/1949</td><td>unknown</td><td>1</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-59_257.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-160</td><td>7/1/1949</td><td>Akin Addition</td><td>5</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_160.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-155</td><td>7/14/1949</td><td>Davis Subdivision</td><td>3</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_155.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-171</td><td>8/24/1949</td><td>Broadmoor Addition</td><td>18</td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/PB-I_171.pdf" target="_blank" rel="noreferrer noopener">Caucasian</a></td></tr><tr><td class="has-text-align-left" data-align="left">MR 62-621</td><td>3/15/1950</td><td>Lily Dale Acres</td><td></td><td><a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2021/05/MR-62_621.pdf" target="_blank" rel="noreferrer noopener">releasing restrictions</a></td></tr><tr><td class="has-text-align-left" data-align="left">PB I-219</td><td>6/6/1950</td><td>Sutton&#8217;s Second Subdivision</td><td>21</td><td></td></tr></tbody></table>
+        </div>
+    </div>    
+    <script>
+
+      // Function to close the dropdowns
+      function closeDropdowns() {
+        var dropdownContents = document.querySelectorAll(".dropdown-content");
+        dropdownContents.forEach(function (content) {
+          content.style.display = "none";
+        });
+      };  
+
+      // show dropdown content
+      document.addEventListener("DOMContentLoaded", function() {
+        var tabLinks = document.querySelectorAll(".tab-link");
+
+        tabLinks.forEach(function(link) {
+          link.addEventListener("click", function(event) {
+            event.preventDefault();
+            var dropdownContent = this.parentElement.nextElementSibling;
+            if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+              // Close other dropdowns
+              closeDropdowns();
+              dropdownContent.style.display = "block";
+            } else {
+              dropdownContent.style.display = "none";
+            }
+          });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function(event) {
+          var target = event.target;
+          var isInsideDropdown = target.closest(".dropdown");
+          if (!isInsideDropdown) {
+            closeDropdowns();
+          }
+        });
+        
+      }); 
+
+    </script>
+  </body>
+  
+  </html>

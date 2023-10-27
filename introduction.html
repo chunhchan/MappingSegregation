@@ -9,6 +9,7 @@
   <!-- Embed Mulish and Merriweather fonts from Google -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
   <!-- All the CSS code goes inside the style tags below -->
   <style>
     /* style the body */
@@ -25,7 +26,7 @@
       width: 100%;
       height: 60px;
       /*background-color: #000000;*/
-      background: linear-gradient(rgb(253, 218, 37), black);
+      background: linear-gradient(#ac6853, black);
       box-shadow: 0px 5px 5px black;
       z-index: 800;
     }
@@ -57,7 +58,7 @@
 
     /* Style for the dropdown container */
     .dropdown-container {
-        background-color: #f9f9f9;
+        background-color: #fffeef;
         border: 1px solid #ccc;
         border-radius: 4px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -71,7 +72,7 @@
     }
 
     .dropdown-container ul li {
-        margin-bottom: 5px;
+        margin-bottom: 0px;
     }
 
     /* Style for the links */
@@ -82,11 +83,11 @@
 
     /* Style for the links on hover */
     .dropdown-container ul li a:hover {
-        color: #0000ff;
+      color: maroon;
     }
 
     a {
-      color: #f7f4ea;
+      color: maroon;
     }
 
     #text {
@@ -97,7 +98,7 @@
       right: 0;
       left: 0;
       bottom: 0;
-      background-color: rgba(255, 255, 255, 0.97);
+      background-color: #fffeef;
       /*overflow-y: scroll;*/
     } 
     
@@ -110,7 +111,8 @@
     }
 
     h4 {
-      font-family: 'Mulish', sans-serif;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
       font-size: 1.75em;
       color: #000000;
       text-align: center;
@@ -134,20 +136,33 @@
       <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html">Introduction</a></h2>
       <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
       <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-        <h2 style="margin: 0px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="index.html">Maps</a></h2>
-        <div class="dropdown-content" style="display: none; position: absolute;">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="introduction.html">Maps</a></h2>
+        <div class="dropdown-content maps-content" style="display: none; position: absolute;">
           <div class="dropdown-container" style="width: 134px;">
-              <ul style="list-style-type: none; padding: 0;">
-                  <li><a href="index-bhc.html">Black Hawk County</a></li>
-                  <li><a href="index-jc.html">Johnson County</a></li>
-              </ul>
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="index-bhc.html">Black Hawk County</a></li>
+              <li><a href="index-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="introduction.html">Restrictions</a></h2>
+        <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="restr-bhc.html">Black Hawk County</a></li>
+              <li><a href="restr-jc.html">Johnson County</a></li>
+            </ul>
           </div>
         </div>
       </div>
     </header>
     <div id="text">
         <div id="textContent">
-            <h4>Introduction</h4>
+            <h4>INTRODUCTION</h4>
             <p>
               This site traces the use of race restrictive deed covenants in Iowa in the first half of the twentieth century. 
               Use the menu above to explore race restrictions in Johnson County and Black Hawk County, including maps of all 
@@ -155,25 +170,48 @@
               information on patterns of racial restriction in each setting. Under “Learn More” you will find information on the 
               importance and impact of these racial restrictions, their legal history, and their use in other settings.
             </p>
-            <h4><a style="text-decoration:none; color:inherit; font-size:20px;" href="index-jc.html">Visit the Johnson County map.</a></h4>
-            <h4><a style="text-decoration:none; color:inherit; font-size:20px;" href="index-bhc.html">Visit the Black Hawk County map.</a></h4>
+            <h4><a style="text-decoration:none; font-size:20px;" href="index-jc.html">Visit the Johnson County map.</a></h4>
+            <h4><a style="text-decoration:none; font-size:20px;" href="index-bhc.html">Visit the Black Hawk County map.</a></h4>
         </div>
     </div>    
     <script>
 
+      // Function to close the dropdowns
+      function closeDropdowns() {
+        var dropdownContents = document.querySelectorAll(".dropdown-content");
+        dropdownContents.forEach(function (content) {
+          content.style.display = "none";
+        });
+      };  
+
+      // show dropdown content
       document.addEventListener("DOMContentLoaded", function() {
-          var mapsLink = document.querySelector(".dropdown h2 a");
-          var dropdownContent = document.querySelector(".dropdown-content");
-  
-          mapsLink.addEventListener("click", function(event) {
-              event.preventDefault();
-              if (dropdownContent.style.display === "none") {
+        var tabLinks = document.querySelectorAll(".tab-link");
+
+        tabLinks.forEach(function(link) {
+          link.addEventListener("click", function(event) {
+            event.preventDefault();
+            var dropdownContent = this.parentElement.nextElementSibling;
+            if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+              // Close other dropdowns
+              closeDropdowns();
               dropdownContent.style.display = "block";
-              } else {
+            } else {
               dropdownContent.style.display = "none";
-              }
+            }
           });
-      });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function(event) {
+          var target = event.target;
+          var isInsideDropdown = target.closest(".dropdown");
+          if (!isInsideDropdown) {
+            closeDropdowns();
+          }
+        });
+        
+      }); 
 
     </script>
   </body>

@@ -11,6 +11,7 @@
   <!-- Embed Mulish and Merriweather fonts from Google -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
   <!-- Add leaflet-search css library -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-search/dist/leaflet-search.min.css" />
   <!-- All the CSS code goes inside the style tags below -->
@@ -37,7 +38,7 @@
       width: 100%;
       height: 60px;
       /*background-color: #000000;*/
-      background: linear-gradient(rgb(253, 218, 37), black);
+      background: linear-gradient(#ac6853, black);
       box-shadow: 0px 5px 5px black;
       z-index: 800;
     }
@@ -77,32 +78,32 @@
 
     /* Style for the dropdown container */
     .dropdown-container {
-        background-color: #f9f9f9;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        padding: 10px;
+      background-color: #fffeef;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      padding: 10px;
     }
 
     /* Style for the list items */
     .dropdown-container ul {
-        padding: 0;
-        margin: 0;
+      padding: 0;
+      margin: 0;
     }
 
     .dropdown-container ul li {
-        margin-bottom: 5px;
+      margin-bottom: 0px;
     }
 
     /* Style for the links */
     .dropdown-container ul li a {
-        text-decoration: none;
-        color: #333;
+      text-decoration: none;
+      color: #333;
     }
 
     /* Style for the links on hover */
     .dropdown-container ul li a:hover {
-        color: #0000ff;
+      color: maroon;
     }
 
     a {
@@ -120,13 +121,26 @@
     <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html">Introduction</a></h2>
     <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
     <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-      <h2 style="margin: 0px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="index.html">Maps</a></h2>
-      <div class="dropdown-content" style="display: none; position: absolute;">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index.html">Maps</a></h2>
+      <div class="dropdown-content maps-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
-            <ul style="list-style-type: none; padding: 0;">
-                <li><a href="index-bhc.html">Black Hawk County</a></li>
-                <li><a href="index-jc.html">Johnson County</a></li>
-            </ul>
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="index-bhc.html">Black Hawk County</a></li>
+            <li><a href="index-jc.html">Johnson County</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index.html">Restrictions</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="restr-bhc.html">Black Hawk County</a></li>
+            <li><a href="restr-jc.html">Johnson County</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -158,19 +172,42 @@
       maxZoom: 20
     }).addTo(map);
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var mapsLink = document.querySelector(".dropdown h2 a");
-        var dropdownContent = document.querySelector(".dropdown-content");
+    // Function to close the dropdowns
+    function closeDropdowns() {
+      var dropdownContents = document.querySelectorAll(".dropdown-content");
+      dropdownContents.forEach(function (content) {
+        content.style.display = "none";
+      });
+    };    
 
-        mapsLink.addEventListener("click", function(event) {
-            event.preventDefault();
-            if (dropdownContent.style.display === "none") {
+    // show dropdown content
+    document.addEventListener("DOMContentLoaded", function() {
+      var tabLinks = document.querySelectorAll(".tab-link");
+
+      tabLinks.forEach(function(link) {
+        link.addEventListener("click", function(event) {
+          event.preventDefault();
+          var dropdownContent = this.parentElement.nextElementSibling;
+          if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+            // Close other dropdowns
+            closeDropdowns();
             dropdownContent.style.display = "block";
-            } else {
+          } else {
             dropdownContent.style.display = "none";
-            }
+          }
         });
-    });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", function(event) {
+        var target = event.target;
+        var isInsideDropdown = target.closest(".dropdown");
+        if (!isInsideDropdown) {
+          closeDropdowns();
+        }
+      });
+
+    }); 
 
     // define a list of counties with data 
     const dataCounties = ['Black Hawk', 'Johnson'];
