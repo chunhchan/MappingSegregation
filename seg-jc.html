@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Give the page a title -->
+  <title>Mapping Segregation in Iowa: Segregation in Johnson County</title>
+  <!-- Embed Mulish and Merriweather fonts from Google -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+  <!-- All the CSS code goes inside the style tags below -->
+  <style>
+    /* style the body */
+    body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Add banner to header background */
+    header {
+      /*background-image: url('background image url here');*/
+      position: fixed;
+      width: 100%;
+      height: 60px;
+      /*background-color: #000000;*/
+      background: linear-gradient(#ac6853, black);
+      box-shadow: 0px 5px 5px black;
+      z-index: 800;
+    }
+
+    /* Set and style fonts for text in map */
+    h1 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 22px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.10em;
+      margin-bottom: 0.0em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 14px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.0em;
+      margin-bottom: 0.0em;
+      margin-left: 0.9em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    /* Style for the dropdown container */
+    .dropdown-container {
+        background-color: #fbfbf5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+    }
+
+    /* Style for the list items */
+    .dropdown-container ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-container ul li {
+        margin-bottom: 0px;
+    }
+
+    /* Style for the links */
+    .dropdown-container ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-container ul li a:hover {
+        color: maroon;
+    }
+
+    a {
+      color: maroon;
+    }
+
+    #text {
+      word-wrap: break-word;
+      z-index: 700;
+      position: fixed;
+      top: 60px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #fffeef;
+      overflow-y: scroll;
+    } 
+    
+    #textContent {
+      font-family: 'Merriweather';
+      width: 90%;
+      max-width: 900px;
+      line-height: 1.9;
+      margin: 20px auto;
+    }
+
+    h4 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 1.75em;
+      color: #000000;
+      text-align: center;
+    }
+
+    p {
+      font-family: 'Merriweather', serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #000000;
+    } 
+    
+    table {
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        font-weight: 300;
+        color: #000000;
+        border-collapse: collapse;
+        border-color: black;
+        border: 0.1rem solid #dcd7ca;
+        border-spacing: 0;
+        margin: 4rem 0;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    tr, td {
+        border: 0.1rem solid #dcd7ca;
+        padding: 0.35em;
+    }
+
+  </style>
+</head>
+
+<body>
+    <!-- Header content -->
+    <header>
+      
+      <h1><a style="text-decoration:none; color:inherit" href="index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
+      <h2>Segregation in Johnson County</h2>
+      
+      <!-- Add a tab for "Information" on the same line and right align -->
+      <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Introduction</a></h2>
+      
+      <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="seg-jc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Maps</a></h2>
+        <div class="dropdown-content maps-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="index-bhc.html">Black Hawk County</a></li>
+              <li><a href="index-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="seg-js.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Restrictions</a></h2>
+        <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="restr-bhc.html">Black Hawk County</a></li>
+              <li><a href="restr-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    <!-- Add a tab for "Segregation" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="seg-jc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Segregation</a></h2>
+        <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="seg-bhc.html">Black Hawk County</a></li>
+              <li><a href="seg-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>   
+
+    </header>
+    <div id="text">
+        <div id="textContent">
+            <h4>SEGREGATION IN JOHNSON COUNTY</h4>
+
+            <p>Iowa City and
+                Johnson County were marked by both formal and informal institutions of
+                segregation. &nbsp;The race restrictive deed
+                covenants mapped here both restricted housing opportunity, and served as a
+                powerful reminder of community norms and assumptions.&nbsp; Beyond such formal restrictions,
+                African-American and Latinx residents faced broader patterns of discrimination including
+                steering by realtors and outright exclusion by most landlords.&nbsp; Landlords followed their own prejudices, or
+                ceded to those of their white tenants.&nbsp;
+                By one count, only nine landlords in Iowa City were willing to
+                let rooms to African-Americans in the decade before World War II. &nbsp;&nbsp;The prewar Latinx population was centered in
+                a railroad “barrio” erected by the Chicago, Rock
+                Island, Pacific Railroad Company to house migrant workers.&nbsp; These temporary structures, located south of
+                the railyard and then relocated to company land on nearby Page Street, stood
+                from 1919 to 1936. </p>
+                
+                
+                
+                <p>Segregation was maintained by the University of Iowa as well,
+                which did not open on-campus housing to African-American students until 1946
+                and actively discouraged African-Americans from renting in the vicinity of
+                campus.&nbsp; Many female African-Americans found
+                lodging as domestic servants in private homes, but options for male students
+                were few.&nbsp; Efforts to establish an
+                African-American residential fraternity were meet with resistance—leading one
+                member to conclude that “there is an organization of the Ku Klux Klan
+                here, and I have not the least doubt but that they are financing the scheme to
+                affect our ruin.”&nbsp; </p>
+                
+                
+                
+                <p>Some respite from these limited options came with the establishment of the Iowa Federation Home (942 Iowa Avenue) for female African-American students in 1919 and the Tate Arms boarding house (914 S. Dubuque) for male African-American students in 1940.&nbsp; But segregation was extensive and persistent—not only in housing, but in employment, in public recreation, and in most University activities. “Conditions in this city,” <a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/06/From-Papers-of-the-NAACP-Part-12_Selected-Branch-Files_1913-1939_Series-C_The-Midwest.pdf" target="_blank" rel="noreferrer noopener" aria-label="as one resident wrote (opens in a new tab)">as one resident wrote</a> the Des Moines chapter of the NAACP in the early 1920s, ”are at present unlivable for a student of color.”</p>
+                
+                
+                
+                <p>For more information, see Herbert Crawford Jenkins, <a rel="noreferrer noopener" aria-label="The Negro Student at the University of Iowa: A Sociological Study,  (opens in a new tab)" href="https://ir.uiowa.edu/etd/6414/" target="_blank">The Negro Student at the University of Iowa: A Sociological Study, </a>MA thesis, State University of Iowa, 1933; Nathaniel Otjen, <a rel="noreferrer noopener" aria-label="Creating a Barrio in Iowa City, 1916–1936: Mexican Section Laborers and the Chicago, Rock Island and Pacific Railroad Company, (opens in a new tab)" href="https://ir.uiowa.edu/cgi/viewcontent.cgi?article=12427&amp;context=annals-of-iowa" target="_blank">Creating a Barrio in Iowa City, 1916–1936: Mexican Section Laborers and the Chicago, Rock Island and Pacific Railroad Company,</a> <em>The Annals of Iowa</em> 76 (2017), 406-432; <a href="https://www.icgov.org/project/preserving-black-history-iowa-city-tate-arms-and-iowa-federation-home" target="_blank" rel="noreferrer noopener" aria-label="Preserving Black History in Iowa City: Tate Arms and the Iowa Federation Home (opens in a new tab)">Preserving Black History in Iowa City: Tate Arms and the Iowa Federation Home</a> (City of Iowa City, 2018); Richard Breaux, <a href="https://dsps.lib.uiowa.edu/mappingsegregationia/wp-content/uploads/sites/72/2020/06/Breaux-Facing-Hostility-Finding-Housing_-African-American-Students-at-UI.pdf" target="_blank" rel="noreferrer noopener" aria-label="Maintaining a Home for Girls&quot;: The Iowa Federation of Colored Women's Clubs at the University of Iowa, 1919-1950 (opens in a new tab)">Maintaining a Home for Girls&#8221;: The Iowa Federation of Colored Women&#8217;s Clubs at the University of Iowa, 1919-1950</a>, <em>The Journal of African American History</em> 87 (Spring 2002), 236-255.</p>
+        
+        </div>
+    </div>    
+    <script>
+
+      // Function to close the dropdowns
+      function closeDropdowns() {
+        var dropdownContents = document.querySelectorAll(".dropdown-content");
+        dropdownContents.forEach(function (content) {
+          content.style.display = "none";
+        });
+      };  
+
+      // show dropdown content
+      document.addEventListener("DOMContentLoaded", function() {
+        var tabLinks = document.querySelectorAll(".tab-link");
+
+        tabLinks.forEach(function(link) {
+          link.addEventListener("click", function(event) {
+            event.preventDefault();
+            var dropdownContent = this.parentElement.nextElementSibling;
+            if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+              // Close other dropdowns
+              closeDropdowns();
+              dropdownContent.style.display = "block";
+            } else {
+              dropdownContent.style.display = "none";
+            }
+          });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function(event) {
+          var target = event.target;
+          var isInsideDropdown = target.closest(".dropdown");
+          if (!isInsideDropdown) {
+            closeDropdowns();
+          }
+        });
+        
+      }); 
+
+    </script>
+  </body>
+  
+  </html>
