@@ -306,8 +306,8 @@
         },
         // add a tooltip to each county
         onEachFeature: function(feature, layer) {
-          // make the tooltip sticky
-          layer.bindTooltip('<h3>' + feature.properties.county + ' County</h3>', {
+          // bind the tooltip to the layer
+          layer.bindTooltip('<h3>' + feature.properties.county + ' County<br><i style="font-size:12px">Data not available</i></h3>', {
             sticky: true,
             direction: 'top',
             opacity: 0.9,
@@ -345,8 +345,8 @@
           };
         },
         onEachFeature: function(feature, layer) {
-          // make the tooltip sticky
-          layer.bindTooltip('<h3>' + feature.properties.county + ' County</h3>', {
+          // bind the tooltip to the layer
+          layer.bindTooltip('<h3>' + feature.properties.county + ' County<br><i style="font-size:12px">Click to see map</i></h3>', {
             sticky: true,
             direction: 'top',
             opacity: 0.9,
