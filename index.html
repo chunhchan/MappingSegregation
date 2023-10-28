@@ -109,6 +109,31 @@
     a {
       color: #f7f4ea;
     }
+
+    /* Style the legend */
+    .legend {
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 3px;
+      bottom: 30px;
+      width: 230px;
+      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+      font: 12px/20px 'Mulish', sans-serif;
+      padding: 10px;
+      position: absolute;
+      right: 0px;
+      z-index: 1;
+      line-height: 18px;
+      color: #555;
+    }
+
+    .legend i {
+      width: 10px;
+      height: 10px;
+      float: left;
+      margin-right: 5px;
+      margin-top: 4px;
+      opacity: 0.7;
+    }
   </style>
 </head>
 
@@ -225,6 +250,29 @@
       });
 
     }); 
+
+    // create legend for the progress
+    const progressLegend = L.control({
+      position: 'bottomright'
+    });
+
+    // add content to the legend
+    progressLegend.onAdd = function(map) {
+
+      const div = L.DomUtil.create('div', 'info legend');
+
+      // generate a label with a colored square for each
+      div.innerHTML +=
+        "<b style='font-size:14px'>Data Availability</b>" + '<br>' + '<i style="background:#C4A484"></i> ' +
+        'Completed' + '<br>' + '<i style="background:skyblue"></i> ' +
+        'In Progress';
+
+      return div;
+
+    };
+
+    // add this legend to the map, because this legend is on by default
+    progressLegend.addTo(map);    
 
     // define a list of counties with data 
     const dataCounties = ['Black Hawk', 'Johnson'];
