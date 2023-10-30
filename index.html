@@ -184,7 +184,19 @@
           </ul>
         </div>
       </div>
-    </div>    
+    </div>  
+    
+    <!-- Add a tab for "Demographics" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Demographics</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="demo-bhc.html">Black Hawk County</a></li>
+            <li><a href="demo-jc.html">Johnson County</a></li>
+          </ul>
+        </div>
+      </div>
 
   </header>
   <!-- The map -->
@@ -295,47 +307,8 @@
     ).done(function(counties) {
 
       // Add all counties to the map
-      L.geoJSON(counties, {
+      const allCounties = L.geoJSON(counties, {
         // style the counties minimalistically with a black outline and no fill
-        style: function(feature) {
-          return {
-            color: '#000000',
-            weight: 1,
-            fillOpacity: 0.0,
-          };
-        },
-        // add a tooltip to each county
-        onEachFeature: function(feature, layer) {
-          // bind the tooltip to the layer
-          layer.bindTooltip('<h3>' + feature.properties.county + ' County<br><i style="font-size:12px">Data not available</i></h3>', {
-            sticky: true,
-            direction: 'top',
-            opacity: 0.9,
-          });
-          // on hover, highlight the county
-          layer.on('mouseover', function(e) {
-            this.setStyle({
-              weight: 3,
-              color: '#000000',
-              fillOpacity: 0.0,
-            });
-          });
-          // on mouseout reset the style
-          layer.on('mouseout', function(e) {
-            this.setStyle({
-              weight: 1,
-              color: '#000000',
-              fillOpacity: 0.0,
-            });
-          });
-        }
-      }).addTo(map);
-
-      // Filter the GeoJSON data to only include counties in the dataCounties list
-      const filteredCounties = counties.features.filter(feature => dataCounties.includes(feature.properties.county));
-
-      // Create a GeoJSON layer with the filtered counties
-      const geoJsonLayer = L.geoJSON(filteredCounties, {
         style: function(feature) {
           return {
             color: '#000000',
@@ -344,40 +317,62 @@
             fillColor: getColor(feature.properties.county),
           };
         },
+        // add a tooltip to each county
         onEachFeature: function(feature, layer) {
-          // bind the tooltip to the layer
-          layer.bindTooltip('<h3>' + feature.properties.county + ' County<br><i style="font-size:12px">Click to see map</i></h3>', {
-            sticky: true,
-            direction: 'top',
-            opacity: 0.9,
-          });
           // on hover, highlight the county
           layer.on('mouseover', function(e) {
             this.setStyle({
-              weight: 3,
-              color: '#000000',
-              fillOpacity: getOpacity(feature.properties.county),
+              weight: 3
             });
           });
           // on mouseout reset the style
           layer.on('mouseout', function(e) {
             this.setStyle({
-              weight: 1,
-              color: '#000000',
-              fillOpacity: getOpacity(feature.properties.county),
+              weight: 1
             });
           });
-          // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
-          if (feature.properties.county === 'Black Hawk') {
-            layer.on('click', function(e) {
-              window.open('index-bhc.html', '_self');
+          // if feature.properties.county is in the dataCounties list
+          if (dataCounties.includes(feature.properties.county)) {
+            // bind the tooltip to the layer
+            layer.bindTooltip('<h3>' + feature.properties.county + ' County<br><i style="font-size:12px">Click to see map</i></h3>', {
+              sticky: true,
+              direction: 'top',
+              opacity: 0.9,
             });
-          } // if the user clicks on the county named 'Johnson', open 'index-jc.html'   
-          else if (feature.properties.county === 'Johnson') {
-            layer.on('click', function(e) {
-              window.open('index-jc.html', '_self');
+            // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
+            if (feature.properties.county === 'Black Hawk') {
+              layer.on('click', function(e) {
+                window.open('index-bhc.html', '_self');
+              });
+            } // if the user clicks on the county named 'Johnson', open 'index-jc.html'   
+            else if (feature.properties.county === 'Johnson') {
+              layer.on('click', function(e) {
+                window.open('index-jc.html', '_self');
+              });
+            }            
+          } else {
+            // bind the tooltip to the layer
+            layer.bindTooltip('<h3>' + feature.properties.county + ' County<br><i style="font-size:12px">Data not available</i></h3>', {
+              sticky: true,
+              direction: 'top',
+              opacity: 0.9,
             });
-          }
+          };
+        }
+      });
+
+      // Filter the GeoJSON data to only include counties in the dataCounties list
+      const filteredCounties = counties.features.filter(feature => dataCounties.includes(feature.properties.county));
+
+      // Create a GeoJSON layer with the filtered counties to feed to the search bar
+      const geoJsonLayer = L.geoJSON(filteredCounties, {
+        style: function(feature) {
+          return {
+            color: '#000000',
+            weight: 0,
+            fillOpacity: 0,
+            fillColor: '#000000',
+          };
         },
       });
 
@@ -397,6 +392,9 @@
           }
         },
       }));
+
+      // Add all counties to the map
+      allCounties.addTo(map);
 
     });
   </script>

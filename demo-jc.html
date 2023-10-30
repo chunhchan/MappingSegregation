@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <!-- Give the page a title -->
-  <title>Mapping Segregation in Iowa: About</title>
+  <title>Mapping Segregation in Iowa: Johnson County Demographics</title>
   <!-- Embed Mulish and Merriweather fonts from Google -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
@@ -83,7 +83,7 @@
 
     /* Style for the links on hover */
     .dropdown-container ul li a:hover {
-      color: maroon;
+        color: maroon;
     }
 
     a {
@@ -123,7 +123,27 @@
       font-size: 16px;
       font-weight: 300;
       color: #000000;
-    }    
+    } 
+    
+    table {
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        font-weight: 300;
+        color: #000000;
+        border-collapse: collapse;
+        border-color: black;
+        border: 0.1rem solid #dcd7ca;
+        border-spacing: 0;
+        margin: 4rem 0;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    tr, td {
+        border: 0.1rem solid #dcd7ca;
+        padding: 0.35em;
+    }
+
   </style>
 </head>
 
@@ -132,14 +152,14 @@
     <header>
       
       <h1><a style="text-decoration:none; color:inherit" href="index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
-      <h2>About this Project</h2>
+      <h2>Johnson County Demographics</h2>
       
       <!-- Add a tab for "Information" on the same line and right align -->
       <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">About this Project</a></h2>
       
       <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
       <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Maps</a></h2>
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="demo-jc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Maps</a></h2>
         <div class="dropdown-content maps-content" style="display: none; position: absolute;">
           <div class="dropdown-container" style="width: 134px;">
             <ul style="list-style-type: none; padding: 0;">
@@ -152,7 +172,7 @@
 
       <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
       <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Restrictions</a></h2>
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="demo-jc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Restrictions</a></h2>
         <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
           <div class="dropdown-container" style="width: 134px;">
             <ul style="list-style-type: none; padding: 0;">
@@ -163,23 +183,23 @@
         </div>
       </div>
 
-    <!-- Add a tab for "Segregation" on the same line, right align, and provide a dropdown menu on click -->
-    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Segregation</a></h2>
-      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
-        <div class="dropdown-container" style="width: 134px;">
-          <ul style="list-style-type: none; padding: 0;">
-            <li><a href="seg-bhc.html">Black Hawk County</a></li>
-            <li><a href="seg-jc.html">Johnson County</a></li>
-          </ul>
+      <!-- Add a tab for "Segregation" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="demo-jc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Segregation</a></h2>
+        <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+          <div class="dropdown-container" style="width: 134px;">
+            <ul style="list-style-type: none; padding: 0;">
+              <li><a href="seg-bhc.html">Black Hawk County</a></li>
+              <li><a href="seg-jc.html">Johnson County</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Add a tab for "Demographics" on the same line, right align, and provide a dropdown menu on click -->
-    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Demographics</a></h2>
-      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+
+      <!-- Add a tab for "Demographics" on the same line, right align, and provide a dropdown menu on click -->
+      <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+        <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="demo-jc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Demographics</a></h2>
+        <div class="dropdown-content demographics-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
           <ul style="list-style-type: none; padding: 0;">
             <li><a href="demo-bhc.html">Black Hawk County</a></li>
@@ -190,15 +210,11 @@
 
     </header>
     <div id="text">
-        <div id="textContent">
-            <h4>ABOUT THIS PROJECT</h4>
-            <p>This project, inspired by similar work in <a rel="noreferrer noopener" aria-label="Minneapolis (opens in a new tab)" href="https://www.mappingprejudice.org/" target="_blank">Minneapolis</a> and <a rel="noreferrer noopener" aria-label="Washington DC (opens in a new tab)" href="https://www.mappingsegregationdc.org/" target="_blank">Washington DC</a>, traces the history of racially-restrictive deed covenants and subdivision restrictions in Iowa counties in the first half of the twentieth century.</p>
-            <p>Use the menu above to explore race restrictions in Johnson County and Black Hawk County, including maps of all the restricted parcels and subdivisions; copies of the restrictive agreements and covenants; and further background information on patterns of racial restriction in each setting. Under “Learn More” you will find information on the importance and impact of these racial restrictions, their legal history, and their use in other settings.</p>
-            <p>The Johnson County research was completed in Spring 2020, by undergraduate researchers working under the direction of <a rel="noreferrer noopener" aria-label="Professor Colin Gordon (opens in a new tab)" href="https://clas.uiowa.edu/history/people/colin-gordon" target="_blank">Professor Colin Gordon</a>. With the help of the Johnson County Recorders Office we assembled digital deed books from high-resolution scanned images spanning 1910-1950. We then searched the records for words and word stems that might indicate the presence of a racial restriction (i.e.&#8221;restr,&#8221; &#8220;caucasian,&#8221; &#8220;colored&#8221;). Once we identified a restriction, we copied it and recorded its key elements (location, language of restriction). We then followed up at the Recorders Office, pulling plat maps of restrictions and converting legal descriptions into addresses. This enabled us to map the full extent, and timing, of racial restrictions in Johnson County. The Johnson County research teams was Gabe Bacille, Dune Carter, Colin Gordon, Colton Herrick, Daniel Langholz, Jack Lauer, and Keiran Reynolds.</p>
-            <p>The Black Hawk County research was completed in Spring 2021. With the help of Black Hawk County Recorder Sandie Smith, we identified race restrictions in the Recorder&#8217;s Deed Records, Miscellaneous Records, and Plat Books. Since the records were not searchable, we relied on Plat book notations and the Miscellaneous Records index to find the restrictions. Restrictions were mapped using the legal description field in the current Recorders&#8217; database. The Black Hawk County research team was Brayden Adcock, Matt Bartholomew, Kate Dennis, Tyler Dolinar, Carson Frazee, Colin Gordon, Cori Hoffman, Emily Kehoe, Cassidy Kengott, Christopher Marriott, Charlotte Stevens, Daniel Welsh, and Hannah Wegner.</p>
-            <p> Special thanks to <a rel="noreferrer noopener" aria-label="Johnson County Recorder (opens in a new tab)" href="https://www.johnson-county.com/dept_recorder.aspx?id=1155" target="_blank">Johnson County Recorder</a> Kim Painter, <a rel="noreferrer noopener" href="https://www.blackhawkcounty.iowa.gov/239/Recorder" target="_blank">Black Hawk County Recorder</a>, Sandie Smith (and their staff) for their help and cooperation; Kirsten Delegard and Kevin Ehrman-Solberg of the Minneapolis-based <a rel="noreferrer noopener" aria-label="Mapping Prejudice (opens in a new tab)" href="https://www.mappingprejudice.org/" target="_blank">Mapping Prejudice</a> project for inspiration and advice; <a rel="noreferrer noopener" aria-label="Richard Carlson (opens in a new tab)" href="https://archaeology.uiowa.edu/richard-j-carlson" target="_blank">Richard Carlson</a> of the Office of the State Archaeologist for sharing his work with the manuscript census records; and Nikki White and Jay Bowen of the <a rel="noreferrer noopener" aria-label="University of Iowa Digital Scholarship & Publishing Studio (opens in a new tab)" href="https://www.lib.uiowa.edu/studio/" target="_blank">University of Iowa Digital Scholarship & Publishing Studio</a> for mapping and web support.</p>
-            <p>All inquiries: Colin Gordon, <a href="mailto:colin-gordon@uiowa.edu">colin-gordon@uiowa.edu</a></p>
-        </div>
+      <div id="textContent">
+        <h4>JOHNSON COUNTY DEMOGRAPHICS</h4>
+        <table class=""><tbody><tr><td></td><td>1890</td><td>1900</td><td>1910</td><td>1920</td><td>1930</td><td>1940</td><td>1950</td></tr><tr><td>JC total</td><td>23131</td><td>24817</td><td>25914</td><td>26462</td><td>30276</td><td>33191</td><td>45756</td></tr><tr><td>IC total</td><td>7173</td><td>7987</td><td>10091</td><td>11267</td><td>15340</td><td>17182</td><td>27122</td></tr><tr><td>JC nonwhite</td><td>58</td><td>62</td><td>65</td><td>68</td><td>112</td><td>89</td><td>201</td></tr><tr><td>IC nonwhite</td><td>50</td><td>62</td><td>57</td><td>60</td><td>110</td><td>77</td><td>169</td></tr></tbody></table>
+        <p>Source: US Census of Population. JC=Johnson County; IC=Iowa City. &#8220;Nonwhite&#8221; used to capture changing census definitions and categories across these years.</p>
+      </div>
     </div>    
     <script>
 
