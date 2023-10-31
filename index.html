@@ -29,6 +29,7 @@
       width: 100%;
       top: 60px;
       bottom: 0;
+      z-index: 700;
     }
 
     /* Add banner to header background */
@@ -134,6 +135,7 @@
       margin-top: 4px;
       opacity: 0.7;
     }
+
   </style>
 </head>
 
@@ -145,7 +147,9 @@
     <h2><a style="text-decoration:none; color:inherit" href="index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Race restrictive covenants in Iowa counties</a></h2>
     
     <!-- Add a tab for "Information" on the same line and right align -->
-    <h2 style="margin-right: 10px; float: right"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">About this Project</a></h2>
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">About</a></h2>
+    </div>
 
     <!-- Add a tab for "Learn More" on the same line, right align, and provide a dropdown menu on click -->
     <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
