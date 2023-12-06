@@ -205,7 +205,7 @@
   <!-- Header content -->
   <header>
     
-    <h1><a style="text-decoration:none; color:inherit" href="index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
+    <h1><a style="text-decoration:none; color:inherit" href="../index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
     <h2>Race restrictive covenants in Black Hawk County</h2>
     
     <!-- Add a tab for "Information" on the same line and right align -->
@@ -435,8 +435,8 @@
 
     // use jquery to load GeoJSON data
     $.when(
-      $.getJSON('data/IA-Towns.geojson'),
-      $.getJSON('data/BH-Restrictive-Covenants.geojson'),
+      $.getJSON('../data/IA-Towns.geojson'),
+      $.getJSON('../data/BH-Restrictive-Covenants.geojson'),
       // when the files are done loading,
       // identify them with names and process them through a function
     ).done(function(towns, restrictive) {

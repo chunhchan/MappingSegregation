@@ -148,7 +148,7 @@
     
     <!-- Add a tab for "Information" on the same line and right align -->
     <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
-      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">About</a></h2>
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="pages/introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">About</a></h2>
     </div>
 
     <!-- Add a tab for "Learn More" on the same line, right align, and provide a dropdown menu on click -->
@@ -157,11 +157,11 @@
       <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
           <ul style="list-style-type: none; padding: 0;">
-            <li><a href="deedcovs.html">Deed Covenants 101</a></li>
-            <li><a href="lawcovs.html">Covenants and the Law</a></li>
-            <li><a href="mattercovs.html">Why Covenants Matter</a></li>
-            <li><a href="other.html">Other Cities</a></li>
-            <li><a href="resources.html">Resources and Links</a></li>
+            <li><a href="pages/deedcovs.html">Deed Covenants 101</a></li>
+            <li><a href="pages/lawcovs.html">Covenants and the Law</a></li>
+            <li><a href="pages/mattercovs.html">Why Covenants Matter</a></li>
+            <li><a href="pages/other.html">Other Cities</a></li>
+            <li><a href="pages/resources.html">Resources and Links</a></li>
           </ul>
         </div>
       </div>
@@ -173,8 +173,8 @@
       <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
           <ul style="list-style-type: none; padding: 0;">
-            <li><a href="demo-bhc.html">Black Hawk County</a></li>
-            <li><a href="demo-jc.html">Johnson County</a></li>
+            <li><a href="pages/demo-bhc.html">Black Hawk County</a></li>
+            <li><a href="pages/demo-jc.html">Johnson County</a></li>
           </ul>
         </div>
       </div>
@@ -186,8 +186,8 @@
       <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
           <ul style="list-style-type: none; padding: 0;">
-            <li><a href="seg-bhc.html">Black Hawk County</a></li>
-            <li><a href="seg-jc.html">Johnson County</a></li>
+            <li><a href="pages/seg-bhc.html">Black Hawk County</a></li>
+            <li><a href="pages/seg-jc.html">Johnson County</a></li>
           </ul>
         </div>
       </div>
@@ -199,8 +199,8 @@
       <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
           <ul style="list-style-type: none; padding: 0;">
-            <li><a href="restr-bhc.html">Black Hawk County</a></li>
-            <li><a href="restr-jc.html">Johnson County</a></li>
+            <li><a href="pages/restr-bhc.html">Black Hawk County</a></li>
+            <li><a href="pages/restr-jc.html">Johnson County</a></li>
           </ul>
         </div>
       </div>
@@ -212,8 +212,8 @@
       <div class="dropdown-content maps-content" style="display: none; position: absolute;">
         <div class="dropdown-container" style="width: 134px;">
           <ul style="list-style-type: none; padding: 0;">
-            <li><a href="index-bhc.html">Black Hawk County</a></li>
-            <li><a href="index-jc.html">Johnson County</a></li>
+            <li><a href="pages/index-bhc.html">Black Hawk County</a></li>
+            <li><a href="pages/index-jc.html">Johnson County</a></li>
           </ul>
         </div>
       </div>
@@ -363,12 +363,12 @@
             // if the user clicks on the county named 'Black Hawk', open 'index-bhc.html'   
             if (feature.properties.county === 'Black Hawk') {
               layer.on('click', function(e) {
-                window.open('index-bhc.html', '_self');
+                window.open('pages/index-bhc.html', '_self');
               });
             } // if the user clicks on the county named 'Johnson', open 'index-jc.html'   
             else if (feature.properties.county === 'Johnson') {
               layer.on('click', function(e) {
-                window.open('index-jc.html', '_self');
+                window.open('pages/index-jc.html', '_self');
               });
             }            
           } else {
@@ -406,10 +406,10 @@
         moveToLocation: function(latlng, title, map) {
           // open 'index-bhc.html' if the user searches for 'Black Hawk'
           if (title == 'Black Hawk') {
-            window.open('index-bhc.html', '_self');
+            window.open('pages/index-bhc.html', '_self');
           } // open 'index-jc.html' if the user searches for 'Johnson'
           else if (title == 'Johnson') {
-            window.open('index-jc.html', '_self');
+            window.open('pages/index-jc.html', '_self');
           }
         },
       }));
