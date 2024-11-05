@@ -313,14 +313,17 @@
     // define a list of counties with data 
     const dataCounties = ['Black Hawk', 'Johnson'];
 
-    // define a function to set the fill color of the counties to blue if they are in the dataCounties list
+    // define a list of in progress counties
+    const progressCounties = ['Linn','Polk','Dubuque'];
+
+    // define a function to set the fill color to skyblue if they are in the progressCounties list or #C4A484 if they are in the dataCounties list or #ffffff if they are not in either list
     function getColor(county) {
-      return dataCounties.includes(county) ? '#C4A484' : '#ffffff';
+      return progressCounties.includes(county) ? 'skyblue' : dataCounties.includes(county) ? '#C4A484' : '#ffffff';
     };
 
-    // define a function to set the fill opacity of the counties to 0.5 if they are in the dataCounties list and 0.0 if they are not
+    // define a function to set the fill opacity of the counties to 0.5 if they are in the dataCounties list or the progressCounties list and 0.0 if they are not
     function getOpacity(county) {
-      return dataCounties.includes(county) ? 0.5 : 0.0;
+      return dataCounties.includes(county) || progressCounties.includes(county) ? 0.5 : 0.0;
     };
 
     // use jquery to load GeoJSON data
