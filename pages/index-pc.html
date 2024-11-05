@@ -7,7 +7,7 @@
   <!-- Set favicon with a .ico file -->
   <link rel="icon" type="image/x-icon" href="../img/favicon.ico">  
   <!-- Give the page a title -->
-  <title>Mapping Segregation in Black Hawk County, Iowa</title>
+  <title>Mapping Segregation in Polk County, Iowa</title>
   <!-- Add a link to the Leaflet CSS library so you can reference it for styling your map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
   <!-- Embed Mulish and Merriweather fonts from Google -->
@@ -208,7 +208,7 @@
   <header>
     
     <h1><a style="text-decoration:none; color:inherit" href="../index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
-    <h2>Race restrictive covenants in Black Hawk County</h2>
+    <h2>Race restrictive covenants in Polk County</h2>
     
     <!-- Add a tab for "Information" on the same line and right align -->
     <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
@@ -293,7 +293,7 @@
     <!-- ui slider -->
     <div id="slider" class="leaflet-control">
       <!-- Use the first and last year of the time data as the min and max. Set the initial value as the last year. Set the steps at one year. -->
-      <input type="range" min="1914" max="1950" value="1950" step="1" class="slider" />
+      <input type="range" min="1913" max="1953" value="1953" step="1" class="slider" />
     </div> 
     <!-- temporal legend -->
     <div id='temporal'>
@@ -311,8 +311,8 @@
   <script>
     
     // Define bounding coordinates to prevent dragging too far from Black Hawk County
-    const southWest = L.latLng(41.797005, -93.033497),
-      northEast = L.latLng(43.141831, -91.581696),
+    const southWest = L.latLng(41.427901, -93.931220),
+      northEast = L.latLng(41.949890, -93.244574),
       bounds = L.latLngBounds(southWest, northEast);
 
     // Initialize the map with fullscreen button
@@ -322,7 +322,7 @@
         position: 'topleft'
       }
     })
-    .setView([42.494559, -92.338884], 13)
+    .setView([41.586993, -93.621651], 13)
     .setMaxBounds(bounds);
 
     // define map options
@@ -407,9 +407,9 @@
 
     // define a function to color code by covenant type
     function getColorRestrictive(d) {
-      return d === 'pet' ? 'red' :
-        d === 'sub' ? 'orange' :
-        d === 'par' ? 'blue' :
+      return d === 'PET' ? 'red' :
+        d === 'SUB' ? 'orange' :
+        d === 'LOTS' ? 'blue' :
         'rgba(0,0,0,0.0)';
     };
 
@@ -425,9 +425,9 @@
 
       // generate a label with a colored square for each
       div.innerHTML +=
-        "<b style='font-size:14px'>Type of Covenant</b>" + '<br>' + '<i style="background:' + getColorRestrictive('pet') + '"></i> ' +
-        'Petition' + '<br>' + '<i style="background:' + getColorRestrictive('sub') + '"></i> ' +
-        'Subdivision' + '<br>' + '<i style="background:' + getColorRestrictive('par') + '"></i> ' + 'Parcel';
+        "<b style='font-size:14px'>Type of Covenant</b>" + '<br>' + '<i style="background:' + getColorRestrictive('PET') + '"></i> ' +
+        'Petition' + '<br>' + '<i style="background:' + getColorRestrictive('SUB') + '"></i> ' +
+        'Subdivision' + '<br>' + '<i style="background:' + getColorRestrictive('LOTS') + '"></i> ' + 'Parcel';
 
       return div;
 
@@ -439,7 +439,7 @@
     // use jquery to load GeoJSON data
     $.when(
       $.getJSON('../data/IA-Towns.geojson'),
-      $.getJSON('../data/BH-Restrictive-Covenants.geojson'),
+      $.getJSON('../data/PolkREST_reduced.geojson'),
       // when the files are done loading,
       // identify them with names and process them through a function
     ).done(function(towns, restrictive) {
@@ -496,10 +496,10 @@
 
           return {
             stroke: 0.25,
-            color: getColorRestrictive(feature.properties.CV_type),
+            color: getColorRestrictive(feature.properties.RC_TYPE),
             strokeOpacity: 1,
             weight: 0.25,
-            fillColor: getColorRestrictive(feature.properties.CV_type),
+            fillColor: getColorRestrictive(feature.properties.RC_TYPE),
             fillOpacity: 0.5,
           };
         },
@@ -507,19 +507,19 @@
         onEachFeature: function(feature, layer) {
 
           // isolate the year of the feature
-          let year = /[^/]*/.exec(layer.feature.properties.CV_date)[0];
+          let year = /[^/]*/.exec(layer.feature.properties.RC_DATE)[0];
 
           // isolate the type of restrictive covenant
-          let type = layer.feature.properties.CV_type;
+          let type = layer.feature.properties.RC_TYPE;
 
-          if (type == 'pet') {
+          if (type == 'PET') {
             var restr = 'PETITION';
-          } else if (type == 'sub') {
+          } else if (type == 'SUB') {
             var restr = 'SUBDIVISION';
-          } else if (type == 'par') {
+          } else if (type == 'LOTS') {
             var restr = 'PARCEL';
           };
-          
+/*          
           // isolate the link to the scanned covenant
           let covenant = '../' + layer.feature.properties.rel_path;
           
@@ -528,13 +528,13 @@
           } else {
             var link = '</b><hr><a href="' + covenant + '" target="_blank">Click here to see the covenant.</a>';
           };
+*/
 
           // bind a popup window
-          layer.bindPopup("<h3><b>" + restr + ' RESTRICTION' + "</b><hr>LOT" + '<br><b>' + layer.feature.properties.legal + "</b><hr>RECORDER'S NUMBER" + '<br><b>' + layer.feature.properties.CV_number +
-            '</b><hr>' + 'RESTRICTION FILED: ' + '<br><b>' + layer.feature.properties.CV_date + link + '</h3>', {
+          layer.bindPopup("<h3><b>" + restr + ' RESTRICTION' + "</b><hr>SUBDIVISION" + '<br><b>' + layer.feature.properties.SUBDIVSN + "</b><hr>" + 'RESTRICTION FILED: ' + '<br><b>' + layer.feature.properties.RC_DATE + '</b></h3>', {
             closeButton: true
           });    
-          
+
           // change layer style on mouseover
           layer.on("mouseover", function(e) {
             layer.setStyle({
@@ -554,7 +554,7 @@
           });
 
           // if the covenant is a petition
-          if (type == 'pet') {
+          if (type == 'PET') {
             if (year <= currentYear) {
               petition.addLayer(layer); // add the layer to the layer group
             } else {
@@ -563,7 +563,7 @@
           };
 
           // if the covenant is a subdivision
-          if (type == 'sub') {
+          if (type == 'SUB') {
             if (year <= currentYear) {
               subdivision.addLayer(layer); // add the layer to the layer group
             } else {
@@ -572,7 +572,7 @@
           };
 
           // if the covenant is a parcel
-          if (type == 'par') {
+          if (type == 'LOTS') {
             if (year <= currentYear) {
               parcel.addLayer(layer); // add the layer to the layer group
             } else {
@@ -619,13 +619,13 @@
       restrictiveParcels.eachLayer(function(layer) {
 
         // isolate the year of the feature
-        let year = /[^/]*/.exec(layer.feature.properties.CV_date)[0];
+        let year = /[^/]*/.exec(layer.feature.properties.RC_DATE)[0];
 
         // isolate the type of restrictive covenant
-        let type = layer.feature.properties.CV_type;
+        let type = layer.feature.properties.RC_TYPE;
 
         // if the covenant is a petition
-        if (type == 'pet') {
+        if (type == 'PET') {
           if (year <= currentYear) {
             petition.addLayer(layer); // add the layer to the layer group
           } else {
@@ -634,7 +634,7 @@
         };
 
         // if the covenant is a subdivision
-        if (type == 'sub') {
+        if (type == 'SUB') {
           if (year <= currentYear) {
             subdivision.addLayer(layer); // add the layer to the layer group
           } else {
@@ -643,7 +643,7 @@
         };
 
         // if the covenant is a parcel
-        if (type == 'par') {
+        if (type == 'LOTS') {
           if (year <= currentYear) {
             parcel.addLayer(layer); // add the layer to the layer group
           } else {
