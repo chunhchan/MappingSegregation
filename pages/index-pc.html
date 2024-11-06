@@ -308,6 +308,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- for grouped layer control -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.js"></script>
+  <!-- Add a link to the Turf JavaScript library for spatial analysis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.3.0/turf.min.js"></script>
   <script>
     
     // Define bounding coordinates to prevent dragging too far from Black Hawk County
@@ -440,9 +442,33 @@
     $.when(
       $.getJSON('../data/IA-Towns.geojson'),
       $.getJSON('../data/PolkREST_reduced.geojson'),
+      $.getJSON('../data/DSM_Census_1920.geojson'),
+      $.getJSON('../data/DSM_Census_1930.geojson'),
+      $.getJSON('../data/DSM_Census_1940.geojson')
       // when the files are done loading,
       // identify them with names and process them through a function
-    ).done(function(towns, restrictive) {
+    ).done(function(towns, restrictive, census1920, census1930, census1940) {
+
+
+// SOME TINKERING WITH DOT DENSITY - NEED TO CLEAN UP POLYGON GEOMETRY
+      // iterate through each feature of the 1920 census data
+      census1920[0].features.forEach(function(feature) {
+        console.log(feature.geometry.coordinates); 
+        const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['Black/Afri']);
+        // Add the dots to the map as circle markers
+        dots1920.forEach(dot => {
+          L.circleMarker([dot.geometry.coordinates[1], dot.geometry.coordinates[0]], {
+            radius: 1,  // Adjust size of the dot
+            fillColor: "#ff7800",
+            color: "#000",
+            weight: 1,
+            opacity: 0.7,
+            fillOpacity: 0.7
+          }).addTo(map);
+        });
+      });
+
+
       
       const townBounds = L.geoJson(towns, {
         // style the layer
@@ -653,6 +679,32 @@
 
       }); 
 
+    };
+
+    // Function to generate dots inside the polygon based on the population
+    function generateDotsFromPolygon(polygon, population) {
+      const dots = [];
+
+      // Get the polygon bounds
+      const polygonBounds = turf.bbox(polygon);  // Bounding box of the polygon
+
+      // Generate a random point inside the polygon for each "unit" of the population
+      for (let i = 0; i < population; i++) {
+        let randomPoint;
+
+        do {
+          // Generate a random point within the bounding box
+          const randomLng = Math.random() * (polygonBounds[2] - polygonBounds[0]) + polygonBounds[0];
+          const randomLat = Math.random() * (polygonBounds[3] - polygonBounds[1]) + polygonBounds[1];
+          randomPoint = turf.point([randomLng, randomLat]);
+
+        } while (!turf.booleanPointInPolygon(randomPoint, polygon));  // Ensure the point is inside the polygon
+
+        // Add the valid point to the dots array
+        dots.push(randomPoint);
+      }
+
+      return dots;
     };
 
   </script>
