@@ -397,7 +397,7 @@
         "Subdivision": subdivision,
         "Parcel": parcel
       },
-      "Black Residents": {
+      "Black Residents by Tract": {
         "1 Dot/Person": dotDensity
       }
     };
@@ -739,9 +739,9 @@
       dots.forEach(dot => {
         L.circleMarker([dot.geometry.coordinates[1], dot.geometry.coordinates[0]], {
           radius: 1,
-          fillColor: "#ff7800",
+          fillColor: "black",
           color: "#000",
-          weight: 1,
+          weight: 0,
           opacity: 0.7,
           fillOpacity: 0.7
         }).addTo(layerGroup);
