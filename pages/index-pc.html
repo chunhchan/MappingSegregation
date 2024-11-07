@@ -450,11 +450,10 @@
     ).done(function(towns, restrictive, census1920, census1930, census1940) {
 
 
-// SOME TINKERING WITH DOT DENSITY - NEED TO CLEAN UP POLYGON GEOMETRY
+// SOME TINKERING WITH DOT DENSITY - NEED TO CHECK
       // iterate through each feature of the 1920 census data
       census1920[0].features.forEach(function(feature) {
-        console.log(feature.geometry.coordinates); 
-        const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['Black/Afri']);
+        const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
         // Add the dots to the map as circle markers
         dots1920.forEach(dot => {
           L.circleMarker([dot.geometry.coordinates[1], dot.geometry.coordinates[0]], {
@@ -464,10 +463,41 @@
             weight: 1,
             opacity: 0.7,
             fillOpacity: 0.7
-          }).addTo(map);
+          });
         });
       });
 
+      // iterate through each feature of the 1930 census data
+      census1930[0].features.forEach(function(feature) {
+        const dots1930 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+        // Add the dots to the map as circle markers
+        dots1930.forEach(dot => {
+          L.circleMarker([dot.geometry.coordinates[1], dot.geometry.coordinates[0]], {
+            radius: 1,  // Adjust size of the dot
+            fillColor: "#ff7800",
+            color: "#000",
+            weight: 1,
+            opacity: 0.7,
+            fillOpacity: 0.7
+          });
+        });
+      });
+
+      // iterate through each feature of the 1940 census data
+      census1940[0].features.forEach(function(feature) {
+        const dots1940 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+        // Add the dots to the map as circle markers
+        dots1940.forEach(dot => {
+          L.circleMarker([dot.geometry.coordinates[1], dot.geometry.coordinates[0]], {
+            radius: 1,  // Adjust size of the dot
+            fillColor: "#ff7800",
+            color: "#000",
+            weight: 1,
+            opacity: 0.7,
+            fillOpacity: 0.7
+          });
+        });
+      });
 
       
       const townBounds = L.geoJson(towns, {
