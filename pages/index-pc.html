@@ -383,6 +383,8 @@
     const petition = L.layerGroup();
     const subdivision = L.layerGroup();
     const parcel = L.layerGroup();
+    // Define one empty LayerGroup for all dots
+    const dotDensity = L.layerGroup().addTo(map);
 
     // add the layers to the map
     map.addLayer(petition);
@@ -394,6 +396,9 @@
         "Petition": petition,
         "Subdivision": subdivision,
         "Parcel": parcel
+      },
+      "Black Residents": {
+        "1 Dot/Person": dotDensity
       }
     };
 
@@ -451,27 +456,23 @@
 
 
 // SOME TINKERING WITH DOT DENSITY - NEED TO CHECK
-      // Define empty LayerGroups for each year
-      const dotDensity1920 = L.layerGroup().addTo(map);
-      const dotDensity1930 = L.layerGroup().addTo(map);
-      const dotDensity1940 = L.layerGroup().addTo(map);
 
-      // Iterate through each feature of the 1920 census data and add dots to dotDensity1920
+      // Iterate through each feature of the 1920 census data and add dots to dotDensity
       census1920[0].features.forEach(function(feature) {
         const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
-        addDotsToLayerGroup(dots1920, dotDensity1920);
+        addDotsToLayerGroup(dots1920, dotDensity);
       });
 
-      // Iterate through each feature of the 1930 census data and add dots to dotDensity1930
+      // Iterate through each feature of the 1930 census data and add dots to dotDensity
       census1930[0].features.forEach(function(feature) {
         const dots1930 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
-        addDotsToLayerGroup(dots1930, dotDensity1930);
+        addDotsToLayerGroup(dots1930, dotDensity);
       });
 
-      // Iterate through each feature of the 1940 census data and add dots to dotDensity1940
+      // Iterate through each feature of the 1940 census data and add dots to dotDensity
       census1940[0].features.forEach(function(feature) {
         const dots1940 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
-        addDotsToLayerGroup(dots1940, dotDensity1940);
+        addDotsToLayerGroup(dots1940, dotDensity);
       });
 
       
@@ -616,21 +617,21 @@
       }); // end restrictiveParcels
 
       // call functions defined below
-      sequenceUI(restrictiveParcels, dotDensity1920, dotDensity1930, dotDensity1940, census1920, census1930, census1940); // calls the sequenceUI function to create the UI slider
+      sequenceUI(restrictiveParcels, dotDensity, census1920, census1930, census1940); // calls the sequenceUI function to create the UI slider
       createTemporalLegend(currentYear);
-      updateParcels(restrictiveParcels, dotDensity1920, dotDensity1930, dotDensity1940, census1920, census1930, census1940, currentYear); // calls the updateParcels function to update the parcels data
+      updateParcels(restrictiveParcels, dotDensity, census1920, census1930, census1940, currentYear); // calls the updateParcels function to update the parcels data
 
     });
 
     // call the UI slider with a function called "sequenceUI"
-    function sequenceUI(restrictiveParcels, dotDensity1920, dotDensity1930, dotDensity1940, census1920, census1930, census1940) { // feed it the parcels and dot data
+    function sequenceUI(restrictiveParcels, dotDensity, census1920, census1930, census1940) { // feed it the parcels and dot data
 
       // use the jQuery ajax method to get the slider element
       $('.slider')
         .on('input change', function() { // when the input changes...
           let currentYear = $(this).val(); // identify the year selected with "currentYear"
           createTemporalLegend(currentYear); // call the createTemporalLegend function
-          updateParcels(restrictiveParcels, dotDensity1920, dotDensity1930, dotDensity1940, census1920, census1930, census1940, currentYear); // calls the updateParcels function to update the parcels and dots data
+          updateParcels(restrictiveParcels, dotDensity, census1920, census1930, census1940, currentYear); // calls the updateParcels function to update the parcels and dots data
         });
 
     }; // End sequenceUI function
@@ -644,34 +645,27 @@
 
 
     // add a function to update the restrictive covenants by selected year
-    function updateParcels(restrictiveParcels, dotDensity1920, dotDensity1930, dotDensity1940, census1920, census1930, census1940, currentYear) {
+    function updateParcels(restrictiveParcels, dotDensity, census1920, census1930, census1940, currentYear) {
 
-      // Hide all layer groups
-      dotDensity1920.clearLayers();
-      dotDensity1930.clearLayers();
-      dotDensity1940.clearLayers();
-
-      console.log(currentYear);
+      // Hide the LayerGroup 
+      dotDensity.clearLayers();
       
       // Add the relevant year data back based on the selected year
       if (parseInt(currentYear) <= 1925) {
         census1920[0].features.forEach(function(feature) {
           const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
-          addDotsToLayerGroup(dots1920, dotDensity1920);
+          addDotsToLayerGroup(dots1920, dotDensity);
         });
-        dotDensity1920.addTo(map);
       } else if (parseInt(currentYear) <= 1935) {
         census1930[0].features.forEach(function(feature) {
           const dots1930 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
-          addDotsToLayerGroup(dots1930, dotDensity1930);
+          addDotsToLayerGroup(dots1930, dotDensity);
         });
-        dotDensity1930.addTo(map);
       } else if (parseInt(currentYear) <= 1953) {
         census1940[0].features.forEach(function(feature) {
           const dots1940 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
-          addDotsToLayerGroup(dots1940, dotDensity1940);
+          addDotsToLayerGroup(dots1940, dotDensity);
         });
-        dotDensity1940.addTo(map);
       }      
 
       // access each layer in the covenants data
