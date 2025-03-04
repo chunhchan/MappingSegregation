@@ -378,7 +378,13 @@
               layer.on('click', function(e) {
                 window.open('pages/index-jc.html', '_self');
               });
-            } // if the user clicks on the county named 'Polk', open 'index-pc.html'   
+            } // if the user clicks on the county named 'Linn', open 'index-lc.html'   
+            else if (feature.properties.county === 'Linn') {
+              layer.on('click', function(e) {
+                window.open('pages/index-lc.html', '_self');
+              });
+            }
+            // if the user clicks on the county named 'Polk', open 'index-pc.html'   
             else if (feature.properties.county === 'Polk') {
               layer.on('click', function(e) {
                 window.open('pages/index-pc.html', '_self');
