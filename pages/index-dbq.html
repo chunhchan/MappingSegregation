@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Set favicon with a .ico file -->
+  <link rel="icon" type="image/x-icon" href="../img/favicon.ico">  
+  <!-- Give the page a title -->
+  <title>Mapping Segregation in Polk County, Iowa</title>
+  <!-- Add a link to the Leaflet CSS library so you can reference it for styling your map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <!-- Embed Mulish and Merriweather fonts from Google -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Mulish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+  <!-- Add leaflet-search css library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-search/dist/leaflet-search.min.css" />
+  <!-- All the CSS code goes inside the style tags below -->
+  <style>
+    /* style the body */
+    body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* style the map */
+    #map {
+      position: absolute;
+      width: 100%;
+      top: 60px;
+      bottom: 0;
+      z-index: 700;
+    }
+
+    /* Add banner to header background */
+    header {
+      /*background-image: url('background image url here');*/
+      position: fixed;
+      width: 100%;
+      height: 60px;
+      /*background-color: #000000;*/
+      background: linear-gradient(#ac6853, black);
+      box-shadow: 0px 5px 5px black;
+      z-index: 800;
+    }
+
+    /* Set and style fonts for text in map */
+    h1 {
+      font-family: 'Mulish', sans-serif;
+      font-size: 22px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.10em;
+      margin-bottom: 0.0em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 14px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.0em;
+      margin-bottom: 0.0em;
+      margin-left: 0.9em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    /* Style the text in the popup */
+    h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      color: black;
+      font-weight: normal;
+    }
+
+    /* Style for the dropdown container */
+    .dropdown-container {
+      background-color: #fbfbf5;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+    }
+
+    /* Style for the list items */
+    .dropdown-container ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    .dropdown-container ul li {
+      margin-bottom: 0px;
+    }
+
+    /* Style for the links */
+    .dropdown-container ul li a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-container ul li a:hover {
+      color: maroon;
+    }
+
+    a {
+      color: #f7f4ea;
+    }
+
+    .legend {
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 3px;
+      bottom: 30px;
+      width: 230px;
+      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+      font: 12px/20px 'Mulish', sans-serif;
+      padding: 10px;
+      position: absolute;
+      right: 0px;
+      z-index: 1;
+      line-height: 18px;
+      color: #555;
+    }
+
+    .legend i {
+      width: 10px;
+      height: 10px;
+      float: left;
+      margin-right: 5px;
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+
+    /* style the slider-control div */
+    #slider-control {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      width: 30%;
+      height: 25px;
+      z-index: 700;
+    }
+
+    /* Set time slider styles */
+    #slider {
+      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+      position: absolute;
+      height: 100%;
+      bottom: 0px;
+      left: 125px;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 3px;
+    }
+
+    /* Set temporal legend styles */
+    #temporal {
+      position: absolute;
+      height: 100%;
+      bottom: 0px;
+      width: 86px;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 3px;
+      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Set the styles for the text span in the temporal legend */
+    #temporal span {
+      font-family: 'Mulish', sans-serif;
+      position: absolute;
+      font-size: 13px;
+      font-weight: lighter;
+      bottom: 4px;
+      left: 10px;
+    }
+
+    .leaflet-control-layers-expanded {
+      font-family: 'Mulish', sans-serif;
+      font-size: 12px;
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .popup-content {
+      padding: 10px; /* Adjust the padding to your preference */
+    }
+
+    .popup-content hr {
+      margin: 10px 0; /* Adjust the margin to your preference */
+    }
+
+    /* Change the background color of the zoom in and out buttons */
+    .leaflet-control-zoom a {
+      background-color: rgba(255, 255, 255, 0.7);
+    }    
+
+  </style>
+</head>
+
+<body>
+  <!-- Header content -->
+  <header>
+    <!-- Change county name as needed -->
+    <h1><a style="text-decoration:none; color:inherit" href="../index.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Mapping Segregation in Iowa</a></h1><br>
+    <h2>Race restrictive covenants in Dubuque County</h2>
+    
+    <!-- Add a tab for "Information" on the same line and right align -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a style="text-decoration:none; color:inherit" href="introduction.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">About</a></h2>
+    </div>
+
+    <!-- Add a tab for "Learn More" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Learn More</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="deedcovs.html">Deed Covenants 101</a></li>
+            <li><a href="lawcovs.html">Covenants and the Law</a></li>
+            <li><a href="mattercovs.html">Why Covenants Matter</a></li>
+            <li><a href="other.html">Other Cities</a></li>
+            <li><a href="resources.html">Resources and Links</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+
+    <!-- Add a tab for "Demographics" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Demographics</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="demo-bhc.html">Black Hawk County</a></li>
+            <li><a href="demo-jc.html">Johnson County</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>    
+
+    <!-- Add a tab for "Segregation" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Segregation</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="seg-bhc.html">Black Hawk County</a></li>
+            <li><a href="seg-jc.html">Johnson County</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>      
+
+    <!-- Add a tab for "Restrictions" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Restrictions</a></h2>
+      <div class="dropdown-content restrictions-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="restr-bhc.html">Black Hawk County</a></li>
+            <li><a href="restr-jc.html">Johnson County</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>    
+    
+    <!-- Add a tab for "Maps" on the same line, right align, and provide a dropdown menu on click -->
+    <div style="margin-right: 10px; float: right; position: relative;" class="dropdown">
+      <h2 style="margin-right: 10px; padding: 0px; display: inline-block"><a class="tab-link" style="text-decoration:none; color:inherit" href="index-bhc.html" onmouseover="this.style.color='skyblue'" onmouseout="this.style.color='inherit'">Maps</a></h2>
+      <div class="dropdown-content maps-content" style="display: none; position: absolute;">
+        <div class="dropdown-container" style="width: 134px;">
+          <ul style="list-style-type: none; padding: 0;">
+            <li><a href="index-bhc.html">Black Hawk County</a></li>
+            <li><a href="index-jc.html">Johnson County</a></li>
+            <li><a href="index-lc.html">Linn County</a></li>
+            <li><a href="index-pc.html">Polk County</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>  
+
+  </header>
+  <!-- The map -->
+  <div id="map"></div>
+
+  <!-- slider control -->
+  <div id="slider-control">
+    <!-- ui slider -->
+    <div id="slider" class="leaflet-control">
+      <!-- Use the first and last year of the time data as the min and max. Set the initial value as the last year. Set the steps at one year. -->
+      <input type="range" min="1913" max="1953" value="1953" step="1" class="slider" />
+    </div> 
+    <!-- temporal legend -->
+    <div id='temporal'>
+      <h5 class='txt-bold'><span id='span'></span></h5>
+    </div>  
+  </div>
+  <!-- end slider control -->
+
+  <!-- Add a link to the Leaflet JavaScript library so you can reference it for building your map -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <!-- Add a link to the jQuery JavaScript library so you can leverage ajax methods to load your data -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- for grouped layer control -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.js"></script>
+  <!-- Add a link to the Turf JavaScript library for spatial analysis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.3.0/turf.min.js"></script>
+  <script>
+    
+    // Define bounding coordinates to prevent dragging too far from Black Hawk County
+    const southWest = L.latLng(41.427901, -93.931220),
+      northEast = L.latLng(41.949890, -93.244574),
+      bounds = L.latLngBounds(southWest, northEast);
+
+    // Initialize the map with fullscreen button
+    const map = L.map('map', {
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        position: 'topleft'
+      }
+    })
+    // Change coordinate for the map view, reference from map shaper
+    .setView([42.50597, -90.68723], 13)
+    .setMaxBounds(bounds);
+
+    // define map options
+    const mapOptions = {
+      maxZoom: 18,
+      minZoom: 10,
+    };
+
+    // add CartoDB.Voyager basemap to map
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(map);
+
+    // Function to close the dropdowns
+    function closeDropdowns() {
+      const dropdownContents = document.querySelectorAll(".dropdown-content");
+      dropdownContents.forEach(function (content) {
+        content.style.display = "none";
+      });
+    };
+
+    // show dropdown content
+    document.addEventListener("DOMContentLoaded", function() {
+      const tabLinks = document.querySelectorAll(".tab-link");
+
+      tabLinks.forEach(function(link) {
+        link.addEventListener("click", function(event) {
+          event.preventDefault();
+          const dropdownContent = this.parentElement.nextElementSibling;
+          if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
+            // Close other dropdowns
+            closeDropdowns();
+            dropdownContent.style.display = "block";
+          } else {
+            dropdownContent.style.display = "none";
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", function(event) {
+        const target = event.target;
+        const isInsideDropdown = target.closest(".dropdown");
+        if (!isInsideDropdown) {
+          closeDropdowns();
+        }
+      });
+
+    });
+
+    // define the value in the slider when the map loads
+    let currentYear = $('.slider').val();
+
+    const petition = L.layerGroup();
+    const subdivision = L.layerGroup();
+    const parcel = L.layerGroup();
+    // Define one empty LayerGroup for all dots
+    const dotDensity = L.layerGroup().addTo(map);
+
+    // add the layers to the map
+    map.addLayer(petition);
+    map.addLayer(subdivision);
+    map.addLayer(parcel);
+
+    const groupedOverlays = {
+      "Restrictive Covenants": {
+        "Petition": petition,
+        "Subdivision": subdivision,
+        "Parcel": parcel
+      },
+      "Black Residents by Enumeration District": {
+        "1 Dot/Person": dotDensity
+      }
+    };
+
+    // add the layer control
+    L.control.groupedLayers(null, groupedOverlays, {
+      collapsed: false,
+    }).addTo(map);
+
+    // add a scale bar
+    L.control.scale({
+      position: 'topright'
+    }).addTo(map);
+
+    // define a function to color code by covenant type
+    function getColorRestrictive(d) {
+      return d === 'PET' ? 'red' :
+        d === 'SUB' ? 'orange' :
+        d === 'LOTS' ? 'blue' :
+        'rgba(0,0,0,0.0)';
+    }; 
+
+    // create legend for the covenants
+    const covenantLegend = L.control({
+      position: 'bottomright'
+    });
+
+    // add content to the legend
+    covenantLegend.onAdd = function(map) {
+
+      const div = L.DomUtil.create('div', 'info legend');
+
+      // generate a label with a colored square for each
+      div.innerHTML +=
+        "<b style='font-size:14px'>Type of Covenant</b>" + '<br>' + '<i style="background:' + getColorRestrictive('PET') + '"></i> ' +
+        'Petition' + '<br>' + '<i style="background:' + getColorRestrictive('SUB') + '"></i> ' +
+        'Subdivision' + '<br>' + '<i style="background:' + getColorRestrictive('LOTS') + '"></i> ' + 'Parcel';
+
+      return div;
+
+    };
+
+    // add this legend to the map, because this legend is on by default
+    covenantLegend.addTo(map);
+
+    // use jquery to load GeoJSON data, change geojson file as needed
+    $.when(
+      $.getJSON('../data/IA-Towns.geojson'),
+      $.getJSON('../data/DUB-Restrictive-Convenants.geojson'),
+      $.getJSON('../data/DSM_Census_1920.geojson'),
+      $.getJSON('../data/DSM_Census_1930.geojson'),
+      $.getJSON('../data/DSM_Census_1940.geojson')
+      // when the files are done loading,
+      // identify them with names and process them through a function
+    ).done(function(towns, restrictive, census1920, census1930, census1940) {
+
+
+// SOME TINKERING WITH DOT DENSITY - NEED TO CHECK
+
+      // Iterate through each feature of the 1920 census data and add dots to dotDensity
+      census1920[0].features.forEach(function(feature) {
+        const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+        addDotsToLayerGroup(dots1920, dotDensity);
+      });
+
+      // Iterate through each feature of the 1930 census data and add dots to dotDensity
+      census1930[0].features.forEach(function(feature) {
+        const dots1930 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+        addDotsToLayerGroup(dots1930, dotDensity);
+      });
+
+      // Iterate through each feature of the 1940 census data and add dots to dotDensity
+      census1940[0].features.forEach(function(feature) {
+        const dots1940 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+        addDotsToLayerGroup(dots1940, dotDensity);
+      });
+
+      
+      const townBounds = L.geoJson(towns, {
+        // style the layer
+        style: function(feature) {
+
+          return {
+            stroke: 0.25,
+            color: 'blue',
+            strokeOpacity: 1,
+            weight: 0.25,
+            fillColor: 'blue',
+            fillOpacity: 0.0,
+          };
+        },
+
+        // for each feature...
+        onEachFeature: function(feature, layer) {
+
+          // make the tooltip sticky
+          layer.bindTooltip('<h3>' + feature.properties.NAME20 + ', IA</h3>', {
+            sticky: true,
+            direction: 'top',
+            opacity: 0.9,
+          });          
+
+          // on hover, give the feature a very subtle fill
+          layer.on('mouseover', function(e) {
+            this.setStyle({
+              weight: 0.25,
+              color: 'blue',
+              fillOpacity: 0.01,
+            });
+          });
+
+          // on mouseout, reset the style
+          layer.on('mouseout', function(e) {
+            this.setStyle({
+              weight: 0.25,
+              color: 'blue',
+              fillOpacity: 0.0,
+            });
+          });
+
+        }
+      }).addTo(map); // end townBounds
+      
+      const restrictiveParcels = L.geoJson(restrictive, {
+
+        // style the layer
+        style: function(feature) {
+
+          return {
+            stroke: 0.25,
+            color: getColorRestrictive(feature.properties.RC_TYPE),
+            strokeOpacity: 1,
+            weight: 0.25,
+            fillColor: getColorRestrictive(feature.properties.RC_TYPE),
+            fillOpacity: 0.5,
+          };
+        },
+
+        onEachFeature: function(feature, layer) {
+
+          // isolate the year of the feature
+          let year = /[^/]*/.exec(layer.feature.properties.RC_DATE)[0];
+
+          // isolate the type of restrictive covenant
+          let type = layer.feature.properties.RC_TYPE;
+
+          if (type == 'PET') {
+            var restr = 'PETITION';
+          } else if (type == 'SUB') {
+            var restr = 'SUBDIVISION';
+          } else if (type == 'LOTS') {
+            var restr = 'PARCEL';
+          };
+/*          
+          // isolate the link to the scanned covenant
+          let covenant = '../' + layer.feature.properties.rel_path;
+          
+          if (covenant == 'absent') {
+            var link = '';
+          } else {
+            var link = '</b><hr><a href="' + covenant + '" target="_blank">Click here to see the covenant.</a>';
+          };
+*/
+
+          // bind a popup window
+          layer.bindPopup("<h3><b>" + restr + ' RESTRICTION' + "</b><hr>SUBDIVISION" + '<br><b>' + layer.feature.properties.SUBDIVSN + "</b><hr>" + 'RESTRICTION FILED: ' + '<br><b>' + layer.feature.properties.RC_DATE + '</b></h3>', {
+            closeButton: true
+          });    
+
+          // change layer style on mouseover
+          layer.on("mouseover", function(e) {
+            layer.setStyle({
+              stroke: 0.25,
+              color: '#4169E1',
+              strokeOpacity: 1,
+              weight: 0.25,
+              fillColor: '#4169E1',
+              fillOpacity: 0.5,
+            }).bringToFront();
+            layer.openPopup();
+          });
+          // reset style on mouseout
+          layer.on("mouseout", function(e) {
+            restrictiveParcels.resetStyle(e.target);
+            //layer.closePopup();
+          });
+
+          // if the covenant is a petition
+          if (type == 'PET') {
+            if (year <= currentYear) {
+              petition.addLayer(layer); // add the layer to the layer group
+            } else {
+              petition.removeLayer(layer); // remove the layer from the layer group;
+            };
+          };
+
+          // if the covenant is a subdivision
+          if (type == 'SUB') {
+            if (year <= currentYear) {
+              subdivision.addLayer(layer); // add the layer to the layer group
+            } else {
+              subdivision.removeLayer(layer); // remove the layer from the layer group;
+            };
+          };
+
+          // if the covenant is a parcel
+          if (type == 'LOTS') {
+            if (year <= currentYear) {
+              parcel.addLayer(layer); // add the layer to the layer group
+            } else {
+              parcel.removeLayer(layer); // remove the layer from the layer group;
+            };
+          };
+
+        }
+
+      }); // end restrictiveParcels
+
+      // call functions defined below
+      sequenceUI(restrictiveParcels, dotDensity, census1920, census1930, census1940); // calls the sequenceUI function to create the UI slider
+      createTemporalLegend(currentYear);
+      updateParcels(restrictiveParcels, dotDensity, census1920, census1930, census1940, currentYear); // calls the updateParcels function to update the parcels data
+
+    });
+
+    // call the UI slider with a function called "sequenceUI"
+    function sequenceUI(restrictiveParcels, dotDensity, census1920, census1930, census1940) { // feed it the parcels and dot data
+
+      // use the jQuery ajax method to get the slider element
+      $('.slider')
+        .on('input change', function() { // when the input changes...
+          let currentYear = $(this).val(); // identify the year selected with "currentYear"
+          createTemporalLegend(currentYear); // call the createTemporalLegend function
+          updateParcels(restrictiveParcels, dotDensity, census1920, census1930, census1940, currentYear); // calls the updateParcels function to update the parcels and dots data
+        });
+
+    }; // End sequenceUI function
+
+    // Add a temporal legend in sync with the UI slider
+    function createTemporalLegend(currentYear) { // feed it the selected year
+
+      $('#temporal span').html("Year: " + currentYear); // change grade value to that currently selected by UI slider
+
+    }; // End createTemporalLegend function
+
+
+    // add a function to update the restrictive covenants by selected year
+    function updateParcels(restrictiveParcels, dotDensity, census1920, census1930, census1940, currentYear) {
+
+      // Hide the LayerGroup 
+      dotDensity.clearLayers();
+      
+      // Add the relevant year data back based on the selected year
+      if (parseInt(currentYear) <= 1925) {
+        census1920[0].features.forEach(function(feature) {
+          const dots1920 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+          addDotsToLayerGroup(dots1920, dotDensity);
+        });
+      } else if (parseInt(currentYear) <= 1935) {
+        census1930[0].features.forEach(function(feature) {
+          const dots1930 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+          addDotsToLayerGroup(dots1930, dotDensity);
+        });
+      } else if (parseInt(currentYear) <= 1953) {
+        census1940[0].features.forEach(function(feature) {
+          const dots1940 = generateDotsFromPolygon(turf.polygon(feature.geometry.coordinates[0]), feature.properties['bpop']);
+          addDotsToLayerGroup(dots1940, dotDensity);
+        });
+      }      
+
+      // access each layer in the covenants data
+      restrictiveParcels.eachLayer(function(layer) {
+
+        // isolate the year of the feature
+        let year = /[^/]*/.exec(layer.feature.properties.RC_DATE)[0];
+
+        // isolate the type of restrictive covenant
+        let type = layer.feature.properties.RC_TYPE;
+
+        // if the covenant is a petition
+        if (type == 'PET') {
+          if (year <= currentYear) {
+            petition.addLayer(layer); // add the layer to the layer group
+          } else {
+            petition.removeLayer(layer); // remove the layer from the layer group;
+          };
+        };
+
+        // if the covenant is a subdivision
+        if (type == 'SUB') {
+          if (year <= currentYear) {
+            subdivision.addLayer(layer); // add the layer to the layer group
+          } else {
+            subdivision.removeLayer(layer); // remove the layer from the layer group;
+          };
+        };
+
+        // if the covenant is a parcel
+        if (type == 'LOTS') {
+          if (year <= currentYear) {
+            parcel.addLayer(layer); // add the layer to the layer group
+          } else {
+            parcel.removeLayer(layer); // remove the layer from the layer group;
+          };
+        };
+
+      }); 
+
+    };
+
+    // Function to generate dots inside the polygon based on the population
+    function generateDotsFromPolygon(polygon, population) {
+      const dots = [];
+
+      // Get the polygon bounds
+      const polygonBounds = turf.bbox(polygon);  // Bounding box of the polygon
+
+      // Generate a random point inside the polygon for each "unit" of the population
+      for (let i = 0; i < population; i++) {
+        let randomPoint;
+
+        do {
+          // Generate a random point within the bounding box
+          const randomLng = Math.random() * (polygonBounds[2] - polygonBounds[0]) + polygonBounds[0];
+          const randomLat = Math.random() * (polygonBounds[3] - polygonBounds[1]) + polygonBounds[1];
+          randomPoint = turf.point([randomLng, randomLat]);
+
+        } while (!turf.booleanPointInPolygon(randomPoint, polygon));  // Ensure the point is inside the polygon
+
+        // Add the valid point to the dots array
+        dots.push(randomPoint);
+      }
+
+      return dots;
+    };
+
+    // A helper function to add dots to a layer group
+    function addDotsToLayerGroup(dots, layerGroup) {
+      dots.forEach(dot => {
+        L.circleMarker([dot.geometry.coordinates[1], dot.geometry.coordinates[0]], {
+          radius: 1,
+          fillColor: "black",
+          color: "#000",
+          weight: 0,
+          opacity: 0.7,
+          fillOpacity: 0.7
+        }).addTo(layerGroup);
+      });
+    };
+
+  </script>
+</body>
+
+</html>
