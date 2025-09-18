@@ -314,8 +314,8 @@
   <script>
     
     // Define bounding coordinates to prevent dragging too far from Black Hawk County
-    const southWest = L.latLng(41.427901, -93.931220),
-      northEast = L.latLng(41.949890, -93.244574),
+    const southWest = L.latLng(42.28, -91.05),
+      northEast = L.latLng(42.70, -90.55),
       bounds = L.latLngBounds(southWest, northEast);
 
     // Initialize the map with fullscreen button
@@ -416,9 +416,9 @@
 
     // define a function to color code by covenant type
     function getColorRestrictive(d) {
-      return d === 'PET' ? 'red' :
-        d === 'SUB' ? 'orange' :
-        d === 'LOTS' ? 'blue' :
+      return d === 'pet' ? 'red' :
+        d === 'sub' ? 'orange' :
+        d === 'lot' ? 'blue' :
         'rgba(0,0,0,0.0)';
     }; 
 
@@ -434,9 +434,9 @@
 
       // generate a label with a colored square for each
       div.innerHTML +=
-        "<b style='font-size:14px'>Type of Covenant</b>" + '<br>' + '<i style="background:' + getColorRestrictive('PET') + '"></i> ' +
-        'Petition' + '<br>' + '<i style="background:' + getColorRestrictive('SUB') + '"></i> ' +
-        'Subdivision' + '<br>' + '<i style="background:' + getColorRestrictive('LOTS') + '"></i> ' + 'Parcel';
+        "<b style='font-size:14px'>Type of Covenant</b>" + '<br>' + '<i style="background:' + getColorRestrictive('pet') + '"></i> ' +
+        'Petition' + '<br>' + '<i style="background:' + getColorRestrictive('sub') + '"></i> ' +
+        'Subdivision' + '<br>' + '<i style="background:' + getColorRestrictive('lot') + '"></i> ' + 'Parcel';
 
       return div;
 
@@ -448,7 +448,7 @@
     // use jquery to load GeoJSON data, change geojson file as needed
     $.when(
       $.getJSON('../data/IA-Towns.geojson'),
-      $.getJSON('../data/DUB-Restrictive-Convenants.geojson'),
+      $.getJSON('../data/DUB-Restrictive-Convenants.json'),
       $.getJSON('../data/DSM_Census_1920.geojson'),
       $.getJSON('../data/DSM_Census_1930.geojson'),
       $.getJSON('../data/DSM_Census_1940.geojson')
@@ -530,10 +530,10 @@
 
           return {
             stroke: 0.25,
-            color: getColorRestrictive(feature.properties.RC_TYPE),
+            color: getColorRestrictive(feature.properties.RESTTYPE),
             strokeOpacity: 1,
             weight: 0.25,
-            fillColor: getColorRestrictive(feature.properties.RC_TYPE),
+            fillColor: getColorRestrictive(feature.properties.RESTTYPE),
             fillOpacity: 0.5,
           };
         },
@@ -541,16 +541,16 @@
         onEachFeature: function(feature, layer) {
 
           // isolate the year of the feature
-          let year = /[^/]*/.exec(layer.feature.properties.RC_DATE)[0];
+          let year = /[^/]*/.exec(layer.feature.properties.RC_Date)[0];
 
           // isolate the type of restrictive covenant
-          let type = layer.feature.properties.RC_TYPE;
+          let type = layer.feature.properties.RESTTYPE;
 
-          if (type == 'PET') {
+          if (type == 'pet') {
             var restr = 'PETITION';
-          } else if (type == 'SUB') {
+          } else if (type == 'sub') {
             var restr = 'SUBDIVISION';
-          } else if (type == 'LOTS') {
+          } else if (type == 'lot') {
             var restr = 'PARCEL';
           };
 /*          
@@ -565,7 +565,7 @@
 */
 
           // bind a popup window
-          layer.bindPopup("<h3><b>" + restr + ' RESTRICTION' + "</b><hr>SUBDIVISION" + '<br><b>' + layer.feature.properties.SUBDIVSN + "</b><hr>" + 'RESTRICTION FILED: ' + '<br><b>' + layer.feature.properties.RC_DATE + '</b></h3>', {
+          layer.bindPopup("<h3><b>" + restr + ' RESTRICTION' + "</b><hr>SUBDIVISION" + '<br><b>' + layer.feature.properties.Subdivisio + "</b><hr>" + 'RESTRICTION FILED: ' + '<br><b>' + layer.feature.properties.RC_Date + '</b></h3>', {
             closeButton: true
           });    
 
@@ -588,7 +588,7 @@
           });
 
           // if the covenant is a petition
-          if (type == 'PET') {
+          if (type == 'pet') {
             if (year <= currentYear) {
               petition.addLayer(layer); // add the layer to the layer group
             } else {
@@ -597,7 +597,7 @@
           };
 
           // if the covenant is a subdivision
-          if (type == 'SUB') {
+          if (type == 'sub') {
             if (year <= currentYear) {
               subdivision.addLayer(layer); // add the layer to the layer group
             } else {
@@ -606,7 +606,7 @@
           };
 
           // if the covenant is a parcel
-          if (type == 'LOTS') {
+          if (type == 'lot') {
             if (year <= currentYear) {
               parcel.addLayer(layer); // add the layer to the layer group
             } else {
@@ -674,13 +674,13 @@
       restrictiveParcels.eachLayer(function(layer) {
 
         // isolate the year of the feature
-        let year = /[^/]*/.exec(layer.feature.properties.RC_DATE)[0];
+        let year = /[^/]*/.exec(layer.feature.properties.RC_Date)[0];
 
         // isolate the type of restrictive covenant
-        let type = layer.feature.properties.RC_TYPE;
+        let type = layer.feature.properties.RESTTYPE;
 
         // if the covenant is a petition
-        if (type == 'PET') {
+        if (type == 'pet') {
           if (year <= currentYear) {
             petition.addLayer(layer); // add the layer to the layer group
           } else {
@@ -689,7 +689,7 @@
         };
 
         // if the covenant is a subdivision
-        if (type == 'SUB') {
+        if (type == 'sub') {
           if (year <= currentYear) {
             subdivision.addLayer(layer); // add the layer to the layer group
           } else {
@@ -698,7 +698,7 @@
         };
 
         // if the covenant is a parcel
-        if (type == 'LOTS') {
+        if (type == 'lot') {
           if (year <= currentYear) {
             parcel.addLayer(layer); // add the layer to the layer group
           } else {
